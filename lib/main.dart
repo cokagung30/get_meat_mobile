@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 640),
       builder: () => const GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home: GetStartedScreen(),
+        home: SignInScreen(),
       ),
     );
   }
