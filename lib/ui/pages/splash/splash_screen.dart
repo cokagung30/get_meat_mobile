@@ -9,6 +9,19 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  void initState() {
+    super.initState();
+    startSplashScreen();
+  }
+
+  startSplashScreen() async {
+    var duration = const Duration(seconds: 5);
+    return Timer(duration, () {
+      Get.off(() => const GetStartedScreen());
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

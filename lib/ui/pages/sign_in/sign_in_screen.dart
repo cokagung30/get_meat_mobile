@@ -20,34 +20,57 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.h),
-              child: FormBuilder(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 150.w,
-                      height: 100.h,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(GetMeatAssets.logo))),
+            padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.h),
+            child: FormBuilder(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 150.w,
+                    height: 100.h,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(GetMeatAssets.logo))),
+                  ),
+                  Text(
+                    'Masuk dan mulai \n berbelanja',
+                    style: GetMeatTextStyle.blackFontStyle3,
+                  ),
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                  _EmailTextField(_emailTextField),
+                  SizedBox(
+                    height: 24.h,
+                  ),
+                  _PasswordTextField(_passwordTextField),
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                  GetMeatButton(
+                    label: 'Sign In',
+                    width: 280.w,
+                    height: 45.h,
+                    buttonColor: GetMeatColors.lightBlue,
+                    style: GetMeatTextStyle.whiteFontStyle1,
+                    onPress: () {},
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  Center(
+                    child: TextButton(
+                      child: Text('Buat Akun Baru',
+                          style: GetMeatTextStyle.grayFontStyle2
+                              .copyWith(decoration: TextDecoration.underline)),
+                      onPressed: () => Get.to(() => const SingUpScreen()),
                     ),
-                    Text(
-                      'Masuk dan mulai \n berbelanja',
-                      style: GetMeatTextStyle.blackFontStyle3,
-                    ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    _EmailTextField(_emailTextField),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    _PasswordTextField(_passwordTextField)
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
