@@ -28,3 +28,4 @@ part 'sign_up/component/phone_number_field.dart';
 part 'sign_up/component/whatsapp_number_field.dart';
 part 'sign_up/component/password_customer_field.dart';
 part 'sign_up/component/address_field.dart';
+part 'sign_up/component/province_dropdown_field.dart';

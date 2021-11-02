@@ -55,6 +55,10 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   ),
                   _AddressTextField(_addressTextField),
                   SizedBox(
+                    height: 24.h,
+                  ),
+                  const _ProvinceDropdownField(),
+                  SizedBox(
                     height: 40.h,
                   ),
                   GetMeatButton(

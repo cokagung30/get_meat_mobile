@@ -10,6 +10,8 @@ class SignUpState extends Equatable {
     this.address = const Tuple2(null, false),
     this.isPasswordVisible = false,
     this.validated = false,
+    this.provinces = const [],
+    this.province = "1",
   });
 
   final FieldValidation customerName;
@@ -20,6 +22,8 @@ class SignUpState extends Equatable {
   final FieldValidation address;
   final bool isPasswordVisible;
   final bool validated;
+  final List<Province> provinces;
+  final String province;
 
   SignUpState copyWith({
     FieldValidation? customerName,
@@ -30,6 +34,8 @@ class SignUpState extends Equatable {
     FieldValidation? address,
     bool? isPasswordVisible,
     bool? validated,
+    List<Province>? provinces,
+    String? province,
   }) {
     return SignUpState(
       customerName: customerName ?? this.customerName,
@@ -40,6 +46,8 @@ class SignUpState extends Equatable {
       address: address ?? this.address,
       isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
       validated: validated ?? this.validated,
+      provinces: provinces ?? this.provinces,
+      province: province ?? this.province,
     );
   }
 
@@ -52,6 +60,8 @@ class SignUpState extends Equatable {
         password,
         address,
         isPasswordVisible,
-        validated
+        validated,
+        provinces,
+        province,
       ];
 }
