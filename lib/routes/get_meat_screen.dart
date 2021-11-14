@@ -4,4 +4,5 @@ class GetMeatScreen {
   static const login = '/login';
   static const register = '/register';
   static const uploadProfilePic = '/profile-pic/:userId';
+  static const main = '/';
 }

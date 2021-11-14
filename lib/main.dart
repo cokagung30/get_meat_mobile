@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
+import 'package:get_meat_apps/injection.dart';
 import 'package:get_meat_apps/routes/get_meat_routes.dart';
 import 'package:get_meat_apps/routes/get_meat_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await setupLocator();
   runApp(const MyApp());
 }
 
