@@ -17,59 +17,81 @@ class _SingUpScreenState extends State<SingUpScreen> {
   final _passwordTextField = GlobalKey<FormBuilderFieldState>();
   final _addressTextField = GlobalKey<FormBuilderFieldState>();
 
+  Future<void> _onSignUpListener(SignUpState state) async {
+    if (state.asyncUser.isSuccess) {
+      // Get.back();
+    } else if (state.asyncUser.isError) {
+      Get.back();
+      showDialog(
+          context: context,
+          builder: (_) {
+            return const GetMeatDialogWidget(
+              title: 'Registrasi gagal',
+              subtitle: 'Terdapat kesalahan, silahkan coba kembali !!',
+              asset: GetMeatAssets.crossCircle,
+            );
+          });
+    } else {
+      showDialogLoading(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => SignUpCubit(),
-      child: CustomViewWithToolbar(
-        leadingIcon: Icons.arrow_back,
-        onLeadingIconTap: () => Get.back(),
-        title: 'Daftar Akun',
-        body: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.h),
-            child: FormBuilder(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _CustomerNameField(_customerNameTextField),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  _EmailCustomerTextField(_emailTextField),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  _PhoneNumberTextField(_phoneNumberTextField),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  _WhatsappNumberTextField(_whatsappNumberTextField),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  _PasswordCustomerTextField(_passwordTextField),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  _AddressTextField(_addressTextField),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  const _ProvinceDropdownField(),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  GetMeatButton(
-                    label: 'Lanjutkan',
-                    width: 280.w,
-                    height: 45.h,
-                    buttonColor: GetMeatColors.lightBlue,
-                    style: GetMeatTextStyle.whiteFontStyle1,
-                    onPress: () {},
-                  ),
-                ],
+      child: BlocListener<SignUpCubit, SignUpState>(
+        listenWhen: (previous, current) {
+          return previous.asyncUser != current.asyncUser;
+        },
+        listener: (_, state) => _onSignUpListener(state),
+        child: CustomViewWithToolbar(
+          leadingIcon: Icons.arrow_back,
+          onLeadingIconTap: () => Get.back(),
+          title: 'Daftar Akun',
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.h),
+              child: FormBuilder(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _CustomerNameField(_customerNameTextField),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    _EmailCustomerTextField(_emailTextField),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    _PhoneNumberTextField(_phoneNumberTextField),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    _WhatsappNumberTextField(_whatsappNumberTextField),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    _PasswordCustomerTextField(_passwordTextField),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    _AddressTextField(_addressTextField),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    const _ProvinceDropdownField(),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    const _CitiesDropDownField(),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    const _SignUpButton(),
+                  ],
+                ),
               ),
             ),
           ),

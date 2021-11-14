@@ -11,13 +11,13 @@ class _ProvinceDropdownField extends StatelessWidget {
       selector: (state) => state.province,
       builder: (_, province) {
         return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
-          return GeatMeatDropdown(
+          return GetMeatDropdown.provice(
             label: 'Provinsi',
             currentSelectedValue: province,
             provinces: state.provinces,
             onChanged: (value) {
-              print(value);
               context.read<SignUpCubit>().selectProvince(value);
+              context.read<SignUpCubit>().getCities();
             },
           );
         });

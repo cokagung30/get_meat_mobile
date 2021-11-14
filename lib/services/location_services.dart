@@ -5,7 +5,7 @@ class LocationServices {
       {http.Client? client}) async {
     client ??= http.Client();
 
-    Uri url = Uri.parse(baseURL + 'province');
+    Uri url = Uri.parse(baseURL + 'location/province');
     var response = await client.get(url);
 
     if (response.statusCode != 200) {
@@ -24,7 +24,7 @@ class LocationServices {
       {http.Client? client}) async {
     client ??= http.Client();
 
-    Uri url = Uri.parse(baseURL + 'cities/$provinceId');
+    Uri url = Uri.parse(baseURL + 'location/cities/$provinceId');
     var response = await client.get(url);
 
     if (response.statusCode != 200) {
@@ -32,6 +32,7 @@ class LocationServices {
     }
 
     var data = jsonDecode(response.body);
+
     List<Cities> cities = (data['data'] as Iterable)
         .map((city) => Cities.fromJson(city))
         .toList();

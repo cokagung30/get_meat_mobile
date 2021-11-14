@@ -34,7 +34,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             image: AssetImage(GetMeatAssets.logo))),
                   ),
                   Text(
-                    'Masuk dan mulai \n berbelanja',
+                    'Masuk dan mulai \nberbelanja',
                     style: GetMeatTextStyle.blackFontStyle3,
                   ),
                   SizedBox(
@@ -49,7 +49,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     height: 40.h,
                   ),
                   GetMeatButton(
-                    label: 'Sign In',
+                    label: 'Login',
                     width: 280.w,
                     height: 45.h,
                     buttonColor: GetMeatColors.lightBlue,

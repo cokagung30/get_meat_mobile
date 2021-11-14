@@ -10,7 +10,7 @@ class Cities extends Equatable {
   final String name;
 
   factory Cities.fromJson(Map<String, dynamic> data) => Cities(
-        cityId: data['city_id'],
+        cityId: data['id'],
         name: data['name'],
       );
 

@@ -13,7 +13,9 @@ class SignUpState extends Equatable {
     this.provinces = const [],
     this.cities = const [],
     this.province = "1",
-    this.city = "1",
+    this.city = "0",
+    this.isLoading = false,
+    this.asyncUser = const AsyncState.uninitialized(),
   });
 
   final FieldValidation customerName;
@@ -27,7 +29,9 @@ class SignUpState extends Equatable {
   final List<Province> provinces;
   final List<Cities> cities;
   final String province;
+  final bool isLoading;
   final String city;
+  final AsyncState<ApiReturnValue<String>> asyncUser;
 
   SignUpState copyWith({
     FieldValidation? customerName,
@@ -42,6 +46,8 @@ class SignUpState extends Equatable {
     List<Cities>? cities,
     String? province,
     String? city,
+    bool? isLoading,
+    AsyncState<ApiReturnValue<String>>? asyncUser,
   }) {
     return SignUpState(
       customerName: customerName ?? this.customerName,
@@ -52,8 +58,12 @@ class SignUpState extends Equatable {
       address: address ?? this.address,
       isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
       validated: validated ?? this.validated,
+      cities: cities ?? this.cities,
       provinces: provinces ?? this.provinces,
       province: province ?? this.province,
+      city: city ?? this.city,
+      isLoading: isLoading ?? this.isLoading,
+      asyncUser: asyncUser ?? this.asyncUser,
     );
   }
 
@@ -68,6 +78,10 @@ class SignUpState extends Equatable {
         isPasswordVisible,
         validated,
         provinces,
+        cities,
         province,
+        city,
+        isLoading,
+        asyncUser,
       ];
 }
