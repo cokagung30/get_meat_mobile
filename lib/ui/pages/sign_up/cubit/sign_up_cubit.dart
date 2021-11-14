@@ -100,7 +100,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(asyncUser: const AsyncState.loading()));
     try {
       var result = await CustomerService.signUp(User(
-        id: '',
+        id: 0,
         customerName: state.customerName.item1!,
         customerEmail: state.email.item1!,
         customerAddress: state.address.item1!,
@@ -112,6 +112,8 @@ class SignUpCubit extends Cubit<SignUpState> {
             int.parse(state.cities[int.parse(state.city)].cityId.toString()),
         customerProfilePicture: '',
       ));
+
+      print(result);
 
       emit(state.copyWith(
         isLoading: false,

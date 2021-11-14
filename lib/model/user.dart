@@ -2,7 +2,7 @@ part of 'models.dart';
 
 class User extends Equatable {
   // Create a constructor for the User class
-  User({
+  const User({
     required this.id,
     required this.customerName,
     required this.customerEmail,
@@ -15,7 +15,7 @@ class User extends Equatable {
     required this.customerProfilePicture,
   });
 
-  final String id;
+  final int id;
   final String customerName;
   final String customerEmail;
   final String customerAddress;
@@ -33,8 +33,8 @@ class User extends Equatable {
         customerAddress = json['alamat_pembeli'],
         customerWhatsappNumber = json['no_wa'],
         customerPhoneNumber = json['no_telp'],
-        customerProvince = json['provinsi_id'] ?? '',
-        customerCity = json['kota_id'] ?? '',
+        customerProvince = int.parse(json['provinsi_id'].toString()),
+        customerCity = int.parse(json['kota_id'].toString()),
         customerProfilePicture = json['photo_profile'] ?? '',
         customerPassword = json['password'] ?? '';
 

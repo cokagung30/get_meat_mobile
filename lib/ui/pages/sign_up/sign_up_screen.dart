@@ -19,7 +19,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Future<void> _onSignUpListener(SignUpState state) async {
     if (state.asyncUser.isSuccess) {
-      // Get.back();
+      Get.offAllNamed(
+        GetMeatScreen.uploadProfilePic,
+        arguments: {'userId': state.asyncUser.data!.value!.id},
+      );
     } else if (state.asyncUser.isError) {
       Get.back();
       showDialog(

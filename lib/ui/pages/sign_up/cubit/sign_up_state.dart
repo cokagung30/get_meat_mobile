@@ -31,7 +31,7 @@ class SignUpState extends Equatable {
   final String province;
   final bool isLoading;
   final String city;
-  final AsyncState<ApiReturnValue<String>> asyncUser;
+  final AsyncState<ApiReturnValue<User>> asyncUser;
 
   SignUpState copyWith({
     FieldValidation? customerName,
@@ -47,7 +47,7 @@ class SignUpState extends Equatable {
     String? province,
     String? city,
     bool? isLoading,
-    AsyncState<ApiReturnValue<String>>? asyncUser,
+    AsyncState<ApiReturnValue<User>>? asyncUser,
   }) {
     return SignUpState(
       customerName: customerName ?? this.customerName,
