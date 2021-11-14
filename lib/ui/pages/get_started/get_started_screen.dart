@@ -62,18 +62,23 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                           height: 45.h,
                           buttonColor: GetMeatColors.lightBlue,
                           style: GetMeatTextStyle.whiteFontStyle2,
-                          onPress: () => Get.to(() => const SingUpScreen()),
+                          onPress: () => Get.offAllNamed(
+                            GetMeatScreen.register,
+                          ),
                         ),
                         SizedBox(
                           height: 16.h,
                         ),
                         GetMeatButton(
-                            label: 'Login Disini',
-                            width: 280.w,
-                            height: 45.h,
-                            buttonColor: Colors.white,
-                            style: GetMeatTextStyle.blackFontStyle2,
-                            onPress: () => Get.to(() => const SignInScreen())),
+                          label: 'Login Disini',
+                          width: 280.w,
+                          height: 45.h,
+                          buttonColor: Colors.white,
+                          style: GetMeatTextStyle.blackFontStyle2,
+                          onPress: () => Get.offAllNamed(
+                            GetMeatScreen.login,
+                          ),
+                        ),
                       ],
                     )
                   ],

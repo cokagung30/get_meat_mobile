@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   startSplashScreen() async {
     var duration = const Duration(seconds: 5);
     return Timer(duration, () {
-      Get.off(() => const GetStartedScreen());
+      Get.offAllNamed(GetMeatScreen.getStarted);
     });
   }
 
@@ -36,8 +36,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 width: 200.w,
                 height: 150.h,
                 decoration: const BoxDecoration(
-                    image:
-                        DecorationImage(image: AssetImage(GetMeatAssets.logo))),
+                  image: DecorationImage(
+                    image: AssetImage(GetMeatAssets.logo),
+                  ),
+                ),
               ),
             ],
           ),

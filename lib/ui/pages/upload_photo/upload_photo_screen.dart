@@ -1,7 +1,9 @@
 part of '../pages.dart';
 
 class UploadPhotoScreen extends StatefulWidget {
-  const UploadPhotoScreen({Key? key}) : super(key: key);
+  const UploadPhotoScreen({Key? key, required this.userId}) : super(key: key);
+
+  final int userId;
 
   @override
   _UploadPhotoScreenState createState() => _UploadPhotoScreenState();
@@ -161,7 +163,7 @@ class _UploadPhotoScreenState extends State<UploadPhotoScreen> {
                           decoration: TextDecoration.underline,
                         ),
                       ),
-                      onPressed: () => Get.to(() => const SingUpScreen()),
+                      onPressed: () {},
                     ),
                   ),
                 ],

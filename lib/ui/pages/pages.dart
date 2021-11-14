@@ -7,6 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/state_manager.dart';
+import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/shared/assets.dart';
 import 'package:get_meat_apps/shared/colors.dart';
 import 'package:get_meat_apps/shared/text_style.dart';

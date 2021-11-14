@@ -3,7 +3,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="get_meat_apps"
+        android:label="Get Meats"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

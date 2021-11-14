@@ -61,10 +61,15 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   Center(
                     child: TextButton(
-                      child: Text('Buat Akun Baru',
-                          style: GetMeatTextStyle.grayFontStyle2
-                              .copyWith(decoration: TextDecoration.underline)),
-                      onPressed: () => Get.to(() => const SingUpScreen()),
+                      child: Text(
+                        'Buat Akun Baru',
+                        style: GetMeatTextStyle.grayFontStyle2.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      onPressed: () => Get.offAllNamed(
+                        GetMeatScreen.register,
+                      ),
                     ),
                   ),
                 ],

@@ -1,13 +1,13 @@
 part of '../pages.dart';
 
-class SingUpScreen extends StatefulWidget {
-  const SingUpScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  _SingUpScreenState createState() => _SingUpScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _SingUpScreenState extends State<SingUpScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   final _emailTextField = GlobalKey<FormBuilderFieldState>();
