@@ -48,4 +48,31 @@ class CustomerService {
     return const ApiReturnValue(
         message: "Upload foto profile gagal", isSuccess: false);
   }
+
+  static Future<ApiReturnValue<User>> signIn(String email, String password,
+      {http.Client? client}) async {
+    client ??= http.Client();
+
+    Uri url = Uri.parse(baseURL + 'auth/login-customer');
+    var response = await client.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"email_pembeli": email, "password": password}),
+    );
+
+    if (response.statusCode != 200) {
+      return const ApiReturnValue(
+          message: 'Maaf datamu masih ada yang salah !!', isSuccess: false);
+    }
+
+    var data = jsonDecode(response.body);
+
+    User userData = User.fromJson(data['data']['customer']);
+
+    return ApiReturnValue<User>(
+      message: data['data']['access_token'],
+      isSuccess: true,
+      value: userData,
+    );
+  }
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
@@ -9,3 +8,4 @@ part 'location_services.dart';
 part 'customer_services.dart';
 
 String baseURL = 'https://get-meat.baliwork.my.id/api/';
+String imageURL = 'https://get-meat.baliwork.my.id/storage/';

@@ -8,7 +8,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/state_manager.dart';
+import 'package:get_meat_apps/data/preferences/auth_preferences.dart';
 import 'package:get_meat_apps/helper/file_compress_helper.dart';
+import 'package:get_meat_apps/injection.dart';
 import 'package:get_meat_apps/model/models.dart';
 import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/shared/assets.dart';
@@ -30,6 +32,7 @@ part 'upload_photo/upload_photo_screen.dart';
 
 part 'sign_in/component/email_field.dart';
 part 'sign_in/component/password_field.dart';
+part 'sign_in/component/sign_in_button.dart';
 
 part 'sign_up/component/customer_name_field.dart';
 part 'sign_up/component/email_field.dart';

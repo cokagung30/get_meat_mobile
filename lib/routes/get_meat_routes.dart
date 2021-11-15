@@ -1,6 +1,5 @@
 import 'package:get/route_manager.dart';
 import 'package:get_meat_apps/routes/get_meat_screen.dart';
-import 'package:get_meat_apps/routes/middleware/auth_middleware.dart';
 import 'package:get_meat_apps/ui/pages/main/main_screen.dart';
 import 'package:get_meat_apps/ui/pages/pages.dart';
 import 'package:get/get.dart';
@@ -33,9 +32,6 @@ class GetMeatRoutes {
     GetPage(
       name: GetMeatScreen.main,
       page: () => const MainScreen(),
-      middlewares: [
-        AuthMiddleware(),
-      ],
     ),
   ];
 }

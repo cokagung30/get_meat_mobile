@@ -17,7 +17,12 @@ class _SplashScreenState extends State<SplashScreen> {
   startSplashScreen() async {
     var duration = const Duration(seconds: 5);
     return Timer(duration, () {
-      Get.offAllNamed(GetMeatScreen.main);
+      var token = locator<AuthPreferences>().getToken();
+      if (token != null) {
+        Get.offAllNamed(GetMeatScreen.main);
+      } else {
+        Get.offAllNamed(GetMeatScreen.getStarted);
+      }
     });
   }
 
