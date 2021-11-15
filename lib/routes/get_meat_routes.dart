@@ -27,7 +27,7 @@ class GetMeatRoutes {
     GetPage(
       name: GetMeatScreen.uploadProfilePic,
       page: () => UploadPhotoScreen(
-        userId: Get.arguments['userId'],
+        user: Get.arguments['user'],
       ),
     ),
     GetPage(

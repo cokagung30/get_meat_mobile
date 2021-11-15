@@ -21,7 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (state.asyncUser.isSuccess) {
       Get.offAllNamed(
         GetMeatScreen.uploadProfilePic,
-        arguments: {'userId': state.asyncUser.data!.value!.id},
+        arguments: {'user': state.asyncUser.data!.value!},
       );
     } else if (state.asyncUser.isError) {
       Get.back();

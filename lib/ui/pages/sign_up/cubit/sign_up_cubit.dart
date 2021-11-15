@@ -113,15 +113,11 @@ class SignUpCubit extends Cubit<SignUpState> {
         customerProfilePicture: '',
       ));
 
-      print(result);
-
       emit(state.copyWith(
         isLoading: false,
         asyncUser: AsyncState.success(result),
       ));
     } catch (e) {
-      print(e);
-
       if (e is Exception) {
         emit(state.copyWith(
           asyncUser: AsyncState.error(e),
