@@ -1,4 +1,4 @@
-part of '../home_page.dart';
+part of '../search_product_screen.dart';
 
 class _ProductListComponent extends StatelessWidget {
   const _ProductListComponent({Key? key, required this.products})
@@ -11,34 +11,14 @@ class _ProductListComponent extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 5.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Produk Terbaik Untukmu',
-                  style: GetMeatTextStyle.blackFontStyle2,
-                ),
-                GestureDetector(
-                  onTap: () => Get.toNamed(GetMeatScreen.searchProduct),
-                  child: const Icon(Icons.arrow_right),
-                )
-              ],
-            ),
-          ),
-          Column(
-            children: products
-                .map(
-                  (e) => GestureDetector(
-                    onTap: () {},
-                    child: _buildProductItem(e),
-                  ),
-                )
-                .toList(),
-          ),
-        ],
+        children: products
+            .map(
+              (e) => GestureDetector(
+                onTap: () {},
+                child: _buildProductItem(e),
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -71,6 +51,7 @@ class _ProductListComponent extends StatelessWidget {
                   ),
                   SizedBox(height: 2.h),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(

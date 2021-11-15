@@ -46,8 +46,12 @@ class AuthPreferences {
     return _prefs!.getString(_customerPhotoProfile);
   }
 
-  void removeToken() {
+  void removeShared() {
     _prefs!.remove(_tokenKey);
+    _prefs!.remove(_customerIdKey);
+    _prefs!.remove(_customerNameKey);
+    _prefs!.remove(_customerEmailKey);
+    _prefs!.remove(_customerPhotoProfile);
   }
 
   void removePhotoProfile() {

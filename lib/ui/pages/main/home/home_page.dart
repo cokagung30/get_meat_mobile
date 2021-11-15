@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:get_meat_apps/data/preferences/auth_preferences.dart';
 import 'package:get_meat_apps/injection.dart';
 import 'package:get_meat_apps/model/models.dart';
+import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/services/services.dart';
 import 'package:get_meat_apps/shared/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +35,6 @@ class _HomePageState extends State<HomePage> {
             color: GetMeatColors.darkBlue,
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 5.h),
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -47,14 +48,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 30.h),
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (_, state) {
-                    if (state.sellers.isLoading && state.products.isLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 1,
-                          color: GetMeatColors.darkBlue,
-                        ),
-                      );
-                    } else {
+                    if (state.sellers.isSuccess && state.products.isSuccess) {
                       return Column(
                         children: [
                           _SellerListComponent(
@@ -65,6 +59,13 @@ class _HomePageState extends State<HomePage> {
                             products: state.products.data!.value!,
                           ),
                         ],
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 1,
+                          color: GetMeatColors.darkBlue,
+                        ),
                       );
                     }
                   },

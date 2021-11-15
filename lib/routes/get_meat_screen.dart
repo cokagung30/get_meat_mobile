@@ -5,4 +5,5 @@ class GetMeatScreen {
   static const register = '/register';
   static const uploadProfilePic = '/profile-pic/:user';
   static const main = '/';
+  static const searchProduct = '/search-product';
 }

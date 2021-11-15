@@ -7,7 +7,7 @@ class ProductServices {
 
     Uri url = (limit != null)
         ? Uri.parse(baseURL + 'product?limit=$limit')
-        : Uri.parse(baseURL + 'product?nama=$productName');
+        : Uri.parse(baseURL + 'product?nama_produk=$productName');
 
     var response = await client.get(url);
     if (response.statusCode != 200) {

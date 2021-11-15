@@ -3,6 +3,7 @@ import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/ui/pages/main/main_screen.dart';
 import 'package:get_meat_apps/ui/pages/pages.dart';
 import 'package:get/get.dart';
+import 'package:get_meat_apps/ui/pages/search_products/search_product_screen.dart';
 
 class GetMeatRoutes {
   static final screen = [
@@ -33,5 +34,9 @@ class GetMeatRoutes {
       name: GetMeatScreen.main,
       page: () => const MainScreen(),
     ),
+    GetPage(
+      name: GetMeatScreen.searchProduct,
+      page: () => const SearchProductScreen(),
+    )
   ];
 }
