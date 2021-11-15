@@ -74,7 +74,7 @@ class GetMeatPhotoProfile extends StatelessWidget {
                 );
               },
             )
-          : Image.asset(
+          : SvgPicture.asset(
               GetMeatAssets.userPhotoNull,
               width: 80,
               height: 80,

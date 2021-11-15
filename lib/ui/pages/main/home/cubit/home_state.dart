@@ -2,19 +2,23 @@ part of 'home_cubit.dart';
 
 class HomeState extends Equatable {
   const HomeState({
-    this.user = const AsyncState.uninitialized(),
+    this.sellers = const AsyncState.uninitialized(),
+    this.products = const AsyncState.uninitialized(),
   });
 
-  final AsyncState<User> user;
+  final AsyncState<ApiReturnValue<List<Seller>>> sellers;
+  final AsyncState<ApiReturnValue<List<Product>>> products;
 
   HomeState copyWith({
-    AsyncState<User>? user,
+    AsyncState<ApiReturnValue<List<Seller>>>? sellers,
+    AsyncState<ApiReturnValue<List<Product>>>? products,
   }) {
     return HomeState(
-      user: user ?? this.user,
+      sellers: sellers ?? this.sellers,
+      products: products ?? this.products,
     );
   }
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [sellers, products];
 }
