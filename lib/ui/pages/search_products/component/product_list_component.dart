@@ -10,7 +10,8 @@ class _ProductListComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Column(
+      child: ListView(
+        shrinkWrap: true,
         children: products
             .map(
               (e) => GestureDetector(

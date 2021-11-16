@@ -23,7 +23,7 @@ class _SellerListComponent extends StatelessWidget {
                   style: GetMeatTextStyle.blackFontStyle2,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => Get.toNamed(GetMeatScreen.searchSeller),
                   child: const Icon(Icons.arrow_right),
                 )
               ],
