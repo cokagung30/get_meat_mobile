@@ -68,7 +68,14 @@ class _SellerListComponent extends StatelessWidget {
                   ],
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(
+                      GetMeatScreen.sellerDetail,
+                      arguments: {
+                        'id': seller.id,
+                      },
+                    );
+                  },
                   child: const Icon(
                     Icons.arrow_forward_ios,
                     size: 24,

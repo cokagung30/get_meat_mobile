@@ -40,7 +40,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     if (state.isDiffSeller) {
       showDialog(
         context: context,
-        builder: (context) => BlocProvider.value(
+        builder: (_) => BlocProvider.value(
           value: BlocProvider.of<ProductDetailCubit>(context),
           child: GetMeatDialogWidget(
             title: 'Pesanan Berbeda',
@@ -55,7 +55,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               label: 'Iya',
               color: GetMeatColors.gray,
               onTap: () {
-                // context.read<ProductDetailCubit>().removeAllCart();
+                context.read<ProductDetailCubit>().removeAllCart();
                 Get.back();
               },
             ),
@@ -72,7 +72,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       child: BlocListener<ProductDetailCubit, ProductDetailState>(
         listenWhen: (previous, current) =>
             previous.isDiffSeller != current.isDiffSeller,
-        listener: (_, state) => _onListener(state, context),
+        listener: (_, state) => _onListener(state, _),
         child: CustomViewWithToolbar(
           title: 'Detail Produk',
           leadingIcon: Icons.arrow_back_ios,

@@ -2,12 +2,17 @@ part of 'services.dart';
 
 class ProductServices {
   static Future<ApiReturnValue<List<Product>>> fetchProducts(
-      {int? limit, String? productName, http.Client? client}) async {
+      {int? limit,
+      String? productName,
+      int? sellerId,
+      http.Client? client}) async {
     client ??= http.Client();
 
     Uri url = (limit != null)
         ? Uri.parse(baseURL + 'product?limit=$limit')
-        : Uri.parse(baseURL + 'product?nama_produk=$productName');
+        : (sellerId != null)
+            ? Uri.parse(baseURL + 'product?pedagang=$sellerId')
+            : Uri.parse(baseURL + 'product?nama_produk=$productName');
 
     var response = await client.get(url);
     if (response.statusCode != 200) {

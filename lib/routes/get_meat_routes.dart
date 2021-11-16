@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_meat_apps/ui/pages/product_detail/product_detail_screen.dart';
 import 'package:get_meat_apps/ui/pages/search_products/search_product_screen.dart';
 import 'package:get_meat_apps/ui/pages/search_sellers/search_sellers_screen.dart';
+import 'package:get_meat_apps/ui/pages/seller_detail/seller_detail_screen.dart';
 
 class GetMeatRoutes {
   static final screen = [
@@ -49,6 +50,12 @@ class GetMeatRoutes {
       page: () => ProductDetailScreen(
         id: Get.arguments['id'],
         sellerId: Get.arguments['sellerId'],
+      ),
+    ),
+    GetPage(
+      name: GetMeatScreen.sellerDetail,
+      page: () => SellerDetailScreen(
+        sellerId: Get.arguments['id'],
       ),
     ),
   ];

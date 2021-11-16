@@ -42,7 +42,14 @@ class _SellerListComponent extends StatelessWidget {
                             right: 16,
                           ),
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(
+                                GetMeatScreen.sellerDetail,
+                                arguments: {
+                                  'id': e.id,
+                                },
+                              );
+                            },
                             child: _buildSellerItem(
                               e,
                             ),

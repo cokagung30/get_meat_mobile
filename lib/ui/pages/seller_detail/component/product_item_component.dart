@@ -1,38 +1,13 @@
-part of '../search_product_screen.dart';
+part of '../seller_detail_screen.dart';
 
-class _ProductListComponent extends StatelessWidget {
-  const _ProductListComponent({Key? key, required this.products})
+class _ProductItemComponent extends StatelessWidget {
+  const _ProductItemComponent({Key? key, required this.product})
       : super(key: key);
 
-  final List<Product> products;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ListView(
-        shrinkWrap: true,
-        children: products
-            .map(
-              (e) => GestureDetector(
-                onTap: () {
-                  Get.toNamed(
-                    GetMeatScreen.productDetail,
-                    arguments: {
-                      'id': e.id,
-                      'sellerId': e.seller.id,
-                    },
-                  );
-                },
-                child: _buildProductItem(e),
-              ),
-            )
-            .toList(),
-      ),
-    );
-  }
-
-  Widget _buildProductItem(Product product) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -60,7 +35,6 @@ class _ProductListComponent extends StatelessWidget {
                   ),
                   SizedBox(height: 2.h),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
