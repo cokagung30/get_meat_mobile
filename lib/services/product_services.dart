@@ -22,4 +22,22 @@ class ProductServices {
 
     return ApiReturnValue(value: products, isSuccess: true);
   }
+
+  static Future<ApiReturnValue<Product>> fetchDetailProduct(
+      {int? productId, http.Client? client}) async {
+    client ??= http.Client();
+
+    Uri url = Uri.parse(baseURL + 'product?id=$productId');
+    var response = await client.get(url);
+
+    if (response.statusCode != 200) {
+      return const ApiReturnValue(
+          message: 'Data produk gagal diambil', isSuccess: false);
+    }
+
+    var data = jsonDecode(response.body);
+    Product products = Product.fromJson(data['data']);
+
+    return ApiReturnValue(value: products, isSuccess: true);
+  }
 }

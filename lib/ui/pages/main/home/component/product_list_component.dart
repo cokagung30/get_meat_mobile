@@ -32,7 +32,12 @@ class _ProductListComponent extends StatelessWidget {
             children: products
                 .map(
                   (e) => GestureDetector(
-                    onTap: () {},
+                    onTap: () => Get.toNamed(
+                      GetMeatScreen.productDetail,
+                      arguments: {
+                        'id': e.id,
+                      },
+                    ),
                     child: _buildProductItem(e),
                   ),
                 )
