@@ -48,6 +48,7 @@ class GetMeatRoutes {
       name: GetMeatScreen.productDetail,
       page: () => ProductDetailScreen(
         id: Get.arguments['id'],
+        sellerId: Get.arguments['sellerId'],
       ),
     ),
   ];

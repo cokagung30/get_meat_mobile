@@ -36,6 +36,7 @@ class _ProductListComponent extends StatelessWidget {
                       GetMeatScreen.productDetail,
                       arguments: {
                         'id': e.id,
+                        'sellerId': e.seller.id,
                       },
                     ),
                     child: _buildProductItem(e),

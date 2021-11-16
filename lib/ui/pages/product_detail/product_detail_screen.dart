@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:get_meat_apps/data/local/services/cart_local_services.dart';
 import 'package:get_meat_apps/model/models.dart';
+import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/services/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_meat_apps/shared/colors.dart';
@@ -16,110 +18,135 @@ part 'component/product_information_component.dart';
 part 'component/note_order_component.dart';
 part 'component/image_product_component.dart';
 part 'component/management_quantity_component.dart';
+part 'component/add_cart_button_component.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({
     Key? key,
     required this.id,
+    required this.sellerId,
   }) : super(key: key);
 
   final int id;
+  final int sellerId;
 
   @override
   _ProductDetailScreenState createState() => _ProductDetailScreenState();
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  Future<void> _onListener(
+      ProductDetailState state, BuildContext context) async {
+    if (state.isDiffSeller) {
+      showDialog(
+        context: context,
+        builder: (context) => BlocProvider.value(
+          value: BlocProvider.of<ProductDetailCubit>(context),
+          child: GetMeatDialogWidget(
+            title: 'Pesanan Berbeda',
+            subtitle:
+                'Tampaknya anda memilih pedagang berbeda dari sebelumnya, mau merubah pesanan anda?',
+            positiveButton: GetMeatDialogButtonModel(
+              label: 'Tidak',
+              color: GetMeatColors.gray,
+              onTap: () => Get.back(),
+            ),
+            negativeButton: GetMeatDialogButtonModel(
+              label: 'Iya',
+              color: GetMeatColors.gray,
+              onTap: () {
+                // context.read<ProductDetailCubit>().removeAllCart();
+                Get.back();
+              },
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ProductDetailCubit(widget.id),
-      child: CustomViewWithToolbar(
-        title: 'Detail Produk',
-        leadingIcon: Icons.arrow_back_ios,
-        onLeadingIconTap: () => Get.back(),
-        body: BlocBuilder<ProductDetailCubit, ProductDetailState>(
-          builder: (_, state) {
-            if (state.asyncProduct.isSuccess) {
-              var product = state.asyncProduct.data;
-              return Stack(
-                children: [
-                  ListView(
-                    shrinkWrap: true,
-                    children: [
-                      _ImageProductComponent(
-                        productPic: state.asyncProduct.data?.photoProduct ?? '',
-                      ),
-                      _ProductInformationComponent(
-                        product: product,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(16.w),
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Catatan untuk pedagang ',
-                                style:
-                                    GetMeatTextStyle.blackFontStyle2.copyWith(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' Tidak Wajib',
-                                style:
-                                    GetMeatTextStyle.blackFontStyle2.copyWith(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ],
-                          ),
+    return BlocProvider<ProductDetailCubit>(
+      create: (context) => ProductDetailCubit(widget.id, widget.sellerId),
+      child: BlocListener<ProductDetailCubit, ProductDetailState>(
+        listenWhen: (previous, current) =>
+            previous.isDiffSeller != current.isDiffSeller,
+        listener: (_, state) => _onListener(state, context),
+        child: CustomViewWithToolbar(
+          title: 'Detail Produk',
+          leadingIcon: Icons.arrow_back_ios,
+          onLeadingIconTap: () => Get.back(),
+          body: BlocBuilder<ProductDetailCubit, ProductDetailState>(
+            builder: (_, state) {
+              if (state.asyncProduct.isSuccess) {
+                var product = state.asyncProduct.data;
+                return Stack(
+                  children: [
+                    ListView(
+                      shrinkWrap: true,
+                      children: [
+                        _ImageProductComponent(
+                          productPic:
+                              state.asyncProduct.data?.photoProduct ?? '',
                         ),
-                      ),
-                      _buildDivider(),
-                      const _NoteOrderComponent(),
-                      _buildDivider(),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
-                      ),
-                      BlocBuilder<ProductDetailCubit, ProductDetailState>(
-                          builder: (_, state) {
-                        return _ManagementQuantityComponent(
-                          quantity: state.quantity,
-                        );
-                      }),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: SafeArea(
-                      child: Container(
+                        _ProductInformationComponent(
+                          product: product,
+                        ),
+                        Container(
                           width: double.infinity,
                           padding: EdgeInsets.all(16.w),
-                          child: GetMeatButton(
-                            label: 'Tambah ke Keranjang ',
-                            width: double.infinity,
-                            height: 40.h,
-                            buttonColor: GetMeatColors.darkBlue,
-                            style: GetMeatTextStyle.whiteFontStyle1.copyWith(
-                              fontSize: 16.sp,
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Catatan untuk pedagang ',
+                                  style:
+                                      GetMeatTextStyle.blackFontStyle2.copyWith(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' Tidak Wajib',
+                                  style:
+                                      GetMeatTextStyle.blackFontStyle2.copyWith(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ],
                             ),
-                            onPress: () {},
-                          )),
+                          ),
+                        ),
+                        _buildDivider(),
+                        const _NoteOrderComponent(),
+                        _buildDivider(),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                        ),
+                        BlocBuilder<ProductDetailCubit, ProductDetailState>(
+                            builder: (_, state) {
+                          return _ManagementQuantityComponent(
+                            quantity: state.quantity,
+                          );
+                        }),
+                      ],
                     ),
-                  ),
-                ],
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
+                    const Align(
+                      alignment: Alignment.bottomCenter,
+                      child: SafeArea(child: _AddCartButtonComponent()),
+                    ),
+                  ],
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

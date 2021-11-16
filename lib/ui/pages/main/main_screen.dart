@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_meat_apps/ui/pages/main/history_order/history_order_page.dart';
+import 'package:get_meat_apps/ui/pages/main/home/cubit/home_cubit.dart';
 import 'package:get_meat_apps/ui/pages/main/home/home_page.dart';
 import 'package:get_meat_apps/ui/pages/main/profile/cubit/profile_cubit.dart';
 import 'package:get_meat_apps/ui/pages/main/profile/profile_page.dart';
@@ -23,7 +24,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => ProfileCubit())],
+      providers: [
+        BlocProvider(create: (_) => ProfileCubit()),
+        BlocProvider(create: (_) => HomeCubit()),
+      ],
       child: SafeArea(
         child: Scaffold(
           body: PageTransitionSwitcher(
