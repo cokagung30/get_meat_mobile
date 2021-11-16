@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_meat_apps/data/async_state.dart';
+import 'package:get_meat_apps/data/local/services/cart_local_services.dart';
 
 import 'package:get_meat_apps/model/models.dart';
 import 'package:get_meat_apps/services/services.dart';
@@ -12,7 +13,10 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(const HomeState()) {
     fetchSeller();
     fetchProduct();
+    checkCart();
   }
+
+  final CartLocalServices _cartLocalServices = CartLocalServices();
 
   void fetchSeller() async {
     emit(state.copyWith(sellers: const AsyncState.loading()));
@@ -21,7 +25,6 @@ class HomeCubit extends Cubit<HomeState> {
       var result = await SellerServices.fetchSeller(limit: 5);
       emit(state.copyWith(sellers: AsyncState.success(result)));
     } catch (e) {
-      print(e);
       if (e is DioError) {
         emit(state.copyWith(sellers: AsyncState.error(e)));
       }
@@ -35,10 +38,13 @@ class HomeCubit extends Cubit<HomeState> {
       var result = await ProductServices.fetchProducts(limit: 10);
       emit(state.copyWith(products: AsyncState.success(result)));
     } catch (e) {
-      print(e);
       if (e is DioError) {
         emit(state.copyWith(products: AsyncState.error(e)));
       }
     }
+  }
+
+  void checkCart() async {
+    int cartCount = await _cartLocalServices.checkProduct(null);
   }
 }

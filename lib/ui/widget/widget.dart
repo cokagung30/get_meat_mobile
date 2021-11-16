@@ -17,3 +17,4 @@ part 'get_meat_dialog_loading_widget.dart';
 part 'get_meat_dialog_widget.dart';
 part 'get_meat_bottomnavigation.dart';
 part 'get_meat_photo_profile.dart';
+part 'get_meat_floatingaction_button_widget.dart';
