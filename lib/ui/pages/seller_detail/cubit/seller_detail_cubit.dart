@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_meat_apps/data/async_state.dart';
+import 'package:get_meat_apps/data/local/services/cart_local_services.dart';
 import 'package:get_meat_apps/model/models.dart';
 import 'package:get_meat_apps/services/services.dart';
 
@@ -10,6 +11,7 @@ part 'seller_detail_state.dart';
 class SellerDetailCubit extends Cubit<SellerDetailState> {
   SellerDetailCubit(this.sellerId) : super(const SellerDetailState()) {
     loadSellerDetail(sellerId);
+    checkCart();
   }
 
   final int sellerId;
@@ -34,5 +36,12 @@ class SellerDetailCubit extends Cubit<SellerDetailState> {
         emit(state.copyWith(asyncSeller: AsyncState.error(e)));
       }
     }
+  }
+
+  void checkCart() async {
+    final CartLocalServices _cartLocalServices = CartLocalServices();
+    int cartCount = await _cartLocalServices.checkProduct(null);
+
+    emit(state.copyWith(cartCount: cartCount));
   }
 }

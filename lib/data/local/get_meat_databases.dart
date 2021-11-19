@@ -12,6 +12,7 @@ class GetMeatDatabases {
   static const String _dbName = 'get_meat.db';
 
   static const _dbVersion1 = 1;
+  static const _dbVersion2 = 2;
 
   CartLocalServices cartLocalServices = CartLocalServices();
 

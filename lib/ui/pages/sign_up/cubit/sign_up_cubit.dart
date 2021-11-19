@@ -118,6 +118,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         asyncUser: AsyncState.success(result),
       ));
     } catch (e) {
+      print(e);
       if (e is Exception) {
         emit(state.copyWith(
           asyncUser: AsyncState.error(e),

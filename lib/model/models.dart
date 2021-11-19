@@ -6,3 +6,4 @@ part 'api_return_value.dart';
 part 'user.dart';
 part 'seller.dart';
 part 'product.dart';
+part 'cost_model.dart';

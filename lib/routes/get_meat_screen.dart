@@ -9,4 +9,5 @@ class GetMeatScreen {
   static const searchSeller = '/search-seller';
   static const productDetail = '/product-detail/:id';
   static const sellerDetail = '/seller-detail/:id';
+  static const payment = '/payment/:id';
 }

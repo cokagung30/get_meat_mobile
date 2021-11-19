@@ -4,7 +4,9 @@ typedef _VerifyButtonAddCartSelector
     = BlocSelector<ProductDetailCubit, ProductDetailState, bool>;
 
 class _AddCartButtonComponent extends StatelessWidget {
-  const _AddCartButtonComponent({Key? key}) : super(key: key);
+  const _AddCartButtonComponent({Key? key, this.product}) : super(key: key);
+
+  final Product? product;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class _AddCartButtonComponent extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.all(16.w),
             child: GetMeatButton(
-              label: 'Tambah ke Keranjang ',
+              label: 'Pesan Sekarang ',
               width: double.infinity,
               height: 40.h,
               buttonColor: GetMeatColors.darkBlue,
@@ -26,7 +28,9 @@ class _AddCartButtonComponent extends StatelessWidget {
                   ? null
                   : () {
                       context.read<ProductDetailCubit>().addToCart();
-                      Get.toNamed(GetMeatScreen.main);
+                      Get.toNamed(GetMeatScreen.payment, arguments: {
+                        'product': product,
+                      });
                     },
             ),
           );

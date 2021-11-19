@@ -14,6 +14,7 @@ class CartLocalServices {
   static const _columnPhotoProduct = 'photo_product';
   static const _columnDescriptioOrder = 'description';
   static const _columnSellerId = 'seller_id';
+  static const _columnUnit = 'unit';
 
   void onCreateCartTable(Batch batch) async {
     batch.execute('''
@@ -25,7 +26,8 @@ class CartLocalServices {
         $_columnQuantity Integer,
         $_columnPhotoProduct Text,
         $_columnDescriptioOrder Text,
-        $_columnSellerId Integer
+        $_columnSellerId Integer,
+        $_columnUnit Text
       )
     ''');
   }

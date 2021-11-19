@@ -10,6 +10,7 @@ class AuthPreferences {
   final String _customerNameKey = 'customerName';
   final String _customerEmailKey = 'customerEmail';
   final String _customerPhotoProfile = 'customerPhotoProfile';
+  final String _customerCityId = 'city_id';
 
   static Future<AuthPreferences> instance() async {
     _instance ??= AuthPreferences();
@@ -24,6 +25,7 @@ class AuthPreferences {
     _prefs!.setString(_customerNameKey, user.customerName);
     _prefs!.setString(_customerEmailKey, user.customerEmail);
     _prefs!.setString(_customerPhotoProfile, user.customerProfilePicture);
+    _prefs!.setString(_customerCityId, user.customerCity.toString());
   }
 
   String? getToken() {
@@ -44,6 +46,10 @@ class AuthPreferences {
 
   String? getCustomerPhotoProfile() {
     return _prefs!.getString(_customerPhotoProfile);
+  }
+
+  String? getCityId() {
+    return _prefs!.getString(_customerCityId);
   }
 
   void removeShared() {

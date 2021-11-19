@@ -74,18 +74,6 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      floatingActionButton: BlocBuilder<HomeCubit, HomeState>(
-        builder: (_, state) {
-          context.read<HomeCubit>().checkCart();
-          if (state.products.isSuccess && state.sellers.isSuccess) {
-            return GetMeatFloatingActionButtonWidget(
-              count: state.cartCount,
-            );
-          } else {
-            return Container();
-          }
-        },
-      ),
     );
   }
 }

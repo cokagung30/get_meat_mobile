@@ -11,6 +11,7 @@ class Cart extends Equatable {
     this.photoProduct,
     this.description,
     required this.sellerId,
+    required this.unit,
   });
 
   final int? id;
@@ -21,6 +22,7 @@ class Cart extends Equatable {
   final String? photoProduct;
   final String? description;
   final int sellerId;
+  final String unit;
 
   Cart.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -30,6 +32,7 @@ class Cart extends Equatable {
         quantity = json['quantity'],
         photoProduct = json['photo_product'],
         description = json['description'],
+        unit = json['unit'],
         sellerId = json['seller_id'];
 
   Map<String, dynamic> toMap() {
@@ -41,6 +44,7 @@ class Cart extends Equatable {
     map['photo_product'] = photoProduct;
     map['description'] = description;
     map['seller_id'] = sellerId;
+    map['unit'] = unit;
 
     return map;
   }

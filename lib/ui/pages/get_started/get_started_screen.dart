@@ -62,7 +62,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                           height: 45.h,
                           buttonColor: GetMeatColors.lightBlue,
                           style: GetMeatTextStyle.whiteFontStyle2,
-                          onPress: () => Get.offAllNamed(
+                          onPress: () => Get.toNamed(
                             GetMeatScreen.register,
                           ),
                         ),
@@ -75,7 +75,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                           height: 45.h,
                           buttonColor: Colors.white,
                           style: GetMeatTextStyle.blackFontStyle2,
-                          onPress: () => Get.offAllNamed(
+                          onPress: () => Get.toNamed(
                             GetMeatScreen.login,
                           ),
                         ),

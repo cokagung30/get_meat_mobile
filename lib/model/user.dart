@@ -13,6 +13,8 @@ class User extends Equatable {
     required this.customerProvince,
     required this.customerCity,
     required this.customerProfilePicture,
+    this.province,
+    this.cities,
   });
 
   final int id;
@@ -25,6 +27,8 @@ class User extends Equatable {
   final int customerProvince;
   final int customerCity;
   final String customerProfilePicture;
+  final Province? province;
+  final Cities? cities;
 
   User.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -36,7 +40,9 @@ class User extends Equatable {
         customerProvince = int.parse(json['provinsi_id'].toString()),
         customerCity = int.parse(json['kota_id'].toString()),
         customerProfilePicture = json['photo_profile'] ?? '',
-        customerPassword = '';
+        customerPassword = '',
+        province = Province.fromJson(json['province']),
+        cities = Cities.fromJson(json['city']);
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{

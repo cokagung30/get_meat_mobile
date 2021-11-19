@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get_meat_apps/data/local/services/cart_local_services.dart';
 import 'package:get_meat_apps/model/models.dart';
 import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/services/services.dart';
@@ -134,9 +133,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         }),
                       ],
                     ),
-                    const Align(
+                    Align(
                       alignment: Alignment.bottomCenter,
-                      child: SafeArea(child: _AddCartButtonComponent()),
+                      child: SafeArea(
+                          child: _AddCartButtonComponent(
+                        product: product,
+                      )),
                     ),
                   ],
                 );

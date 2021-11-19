@@ -11,7 +11,6 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(const HomeState()) {
-    // checkCart();
     fetchSeller();
     fetchProduct();
   }
@@ -40,12 +39,5 @@ class HomeCubit extends Cubit<HomeState> {
         emit(state.copyWith(products: AsyncState.error(e)));
       }
     }
-  }
-
-  void checkCart() async {
-    final CartLocalServices _cartLocalServices = CartLocalServices();
-    int cartCount = await _cartLocalServices.checkProduct(null);
-
-    emit(state.copyWith(cartCount: cartCount));
   }
 }

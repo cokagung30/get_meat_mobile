@@ -75,4 +75,35 @@ class CustomerService {
       value: userData,
     );
   }
+
+  static Future<ApiReturnValue<User>> fetchUser({http.Client? client}) async {
+    client ??= http.Client();
+
+    var userId = locator<AuthPreferences>().getCustomerId();
+
+    Uri url = Uri.parse(baseURL + 'customer/$userId');
+    var response = await client.get(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+
+    if (response.statusCode != 200) {
+      return const ApiReturnValue(
+        message: 'Maaf data user tidak ditemukan, silahkan coba lagi !!',
+        isSuccess: false,
+      );
+    }
+
+    var data = jsonDecode(response.body);
+    User user = User.fromJson(data['data']);
+
+    return ApiReturnValue<User>(
+      message: data['meta']['message'],
+      isSuccess: true,
+      value: user,
+    );
+  }
 }

@@ -8,6 +8,7 @@ import 'package:get_meat_apps/shared/assets.dart';
 import 'package:get_meat_apps/shared/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_meat_apps/shared/text_style.dart';
+import 'package:get_meat_apps/ui/pages/product_detail/product_detail_screen.dart';
 import 'package:get_meat_apps/ui/pages/seller_detail/cubit/seller_detail_cubit.dart';
 import 'package:get_meat_apps/ui/widget/widget.dart';
 import 'package:intl/intl.dart';
@@ -35,6 +36,7 @@ class _SellerDetailScreenState extends State<SellerDetailScreen> {
       create: (_) => SellerDetailCubit(widget.sellerId),
       child: BlocBuilder<SellerDetailCubit, SellerDetailState>(
         builder: (_, state) {
+          // context.read<SellerDetailCubit>().checkCart();
           return SafeArea(
             child: Scaffold(
               body: (state.asyncSeller.isSuccess &&

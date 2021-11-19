@@ -68,11 +68,14 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
     int cartCount = await _cartLocalServices.checkProduct(product.id);
 
     Cart cart = Cart(
-        productId: product.id,
-        productName: product.productName,
-        productPrice: product.price,
-        quantity: state.quantity,
-        sellerId: product.seller.id);
+      productId: product.id,
+      productName: product.productName,
+      productPrice: product.price,
+      quantity: state.quantity,
+      sellerId: product.seller.id,
+      unit: product.unit,
+      photoProduct: product.photoProduct,
+    );
 
     if (cartCount > 0) {
       await _cartLocalServices.update(cart);
