@@ -7,4 +7,5 @@ class GetMeatAssets {
   static const btnRemovePhoto = 'assets/btn_remove_photo.svg';
   static const crossCircle = 'assets/cross_circle.svg';
   static const emptyData = 'assets/empty-data.json';
+  static const fileUpload = 'assets/file-upload.json';
 }

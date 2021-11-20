@@ -8,6 +8,7 @@ import 'package:get_meat_apps/ui/pages/product_detail/product_detail_screen.dart
 import 'package:get_meat_apps/ui/pages/search_products/search_product_screen.dart';
 import 'package:get_meat_apps/ui/pages/search_sellers/search_sellers_screen.dart';
 import 'package:get_meat_apps/ui/pages/seller_detail/seller_detail_screen.dart';
+import 'package:get_meat_apps/ui/pages/transfer_bank/transfer_bank_screen.dart';
 
 class GetMeatRoutes {
   static final screen = [
@@ -36,7 +37,7 @@ class GetMeatRoutes {
     ),
     GetPage(
       name: GetMeatScreen.main,
-      page: () => const MainScreen(),
+      page: () => const MainScreen(initalPage: 0),
     ),
     GetPage(
       name: GetMeatScreen.searchProduct,
@@ -63,6 +64,12 @@ class GetMeatRoutes {
       name: GetMeatScreen.payment,
       page: () => PaymentScreen(
         product: Get.arguments['product'],
+      ),
+    ),
+    GetPage(
+      name: GetMeatScreen.transferBank,
+      page: () => TransferBankScreen(
+        order: Get.arguments['order'],
       ),
     ),
   ];

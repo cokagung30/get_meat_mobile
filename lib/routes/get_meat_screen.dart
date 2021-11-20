@@ -10,4 +10,5 @@ class GetMeatScreen {
   static const productDetail = '/product-detail/:id';
   static const sellerDetail = '/seller-detail/:id';
   static const payment = '/payment/:id';
+  static const transferBank = '/transfer-bank';
 }

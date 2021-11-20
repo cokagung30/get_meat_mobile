@@ -15,10 +15,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Future<void> _onSignInListener(SignInState state) async {
     if (state.asyncUserLogged.isSuccess) {
-      // Get.offAllNamed(
-      //   GetMeatScreen.uploadProfilePic,
-      //   arguments: {'user': state.asyncUser.data!.value!},
-      // );
       if (state.asyncUserLogged.data!.isSuccess != false) {
         Get.offAllNamed(
           GetMeatScreen.main,

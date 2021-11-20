@@ -4,17 +4,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_meat_apps/data/local/models/cart.dart';
 import 'package:get_meat_apps/model/models.dart';
+import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/services/services.dart';
+import 'package:get_meat_apps/shared/assets.dart';
 import 'package:get_meat_apps/shared/colors.dart';
 import 'package:get_meat_apps/shared/text_style.dart';
 import 'package:get_meat_apps/ui/pages/payment/cubit/payment_cubit.dart';
 import 'package:get_meat_apps/ui/widget/widget.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'component/header_component.dart';
 part 'component/item_order_component.dart';
 part 'component/order_by_component.dart';
 part 'component/checkout_button_component.dart';
+part 'component/payment_type_option.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({Key? key, required this.product}) : super(key: key);
@@ -26,6 +30,44 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  Future<void> _onSendingOrder(PaymentState state) async {
+    print(state.asyncOrder);
+    Get.back();
+    if (state.asyncOrder.isSuccess) {
+      if (state.asyncOrder.data!.isSuccess != false) {
+        if (state.asyncOrder.data!.value!.typePayment == 'Transfer Bank') {
+          Get.offAllNamed(GetMeatScreen.transferBank, arguments: {
+            'order': state.asyncOrder.data!.value!,
+          });
+        } else {
+          await launch(state.asyncOrder.data!.value!.paymentUrl ?? '');
+        }
+      } else {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return GetMeatDialogWidget(
+                title: 'Login gagal',
+                subtitle: state.asyncOrder.data!.message!,
+                asset: GetMeatAssets.crossCircle,
+              );
+            });
+      }
+    } else if (state.asyncOrder.isError) {
+      showDialog(
+          context: context,
+          builder: (_) {
+            return const GetMeatDialogWidget(
+              title: 'Login gagal',
+              subtitle: 'Terdapat kesalahan, silahkan coba kembali !!',
+              asset: GetMeatAssets.crossCircle,
+            );
+          });
+    } else {
+      showDialogLoading(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -33,54 +75,87 @@ class _PaymentScreenState extends State<PaymentScreen> {
         sellerCity: widget.product.seller.city.cityId,
         productId: widget.product.id,
       ),
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white70,
-          body: BlocBuilder<PaymentCubit, PaymentState>(
-            builder: (_, state) {
-              if (state.asyncCostPayment.isSuccess &&
-                  state.asyncUser.isSuccess) {
-                return Column(
-                  children: [
-                    const _HeaderComponent(),
-                    Expanded(
-                      child: ListView(
-                        children: [
-                          SizedBox(
-                            height: 24.h,
-                          ),
-                          _ItemOrderComponent(
-                            cart: state.asyncCart.data,
-                            costAmount:
-                                state.asyncCostPayment.data?.value?.value ?? 0,
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                          ),
-                          _OrderByComponent(user: state.asyncUser.data?.value),
-                          SizedBox(
-                            height: 24.h,
-                          ),
-                          const _CheckoutButtonComponent(),
-                          SizedBox(
-                            height: 24.h,
-                          ),
-                        ],
+      child: BlocListener<PaymentCubit, PaymentState>(
+        listenWhen: (prev, next) {
+          return prev.asyncOrder != next.asyncOrder;
+        },
+        listener: (_, state) => _onSendingOrder(state),
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.white70,
+            body: BlocBuilder<PaymentCubit, PaymentState>(
+              builder: (_, state) {
+                if (state.asyncCostPayment.isSuccess &&
+                    state.asyncUser.isSuccess &&
+                    state.asyncCart.isSuccess) {
+                  return Column(
+                    children: [
+                      const _HeaderComponent(),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            _ItemOrderComponent(
+                              cart: state.asyncCart.data,
+                              costAmount:
+                                  state.asyncCostPayment.data?.value?.value ??
+                                      0,
+                            ),
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            _OrderByComponent(
+                                user: state.asyncUser.data?.value),
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            _CheckoutButtonComponent(
+                              onTap: () => _showPicker(_),
+                            ),
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                          ],
+                        ),
                       ),
+                    ],
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
                     ),
-                  ],
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                  ),
-                );
-              }
-            },
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  void _showPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => BlocProvider.value(
+          value: BlocProvider.of<PaymentCubit>(context),
+          child: BlocListener<PaymentCubit, PaymentState>(
+            listenWhen: (prev, curr) => prev.asyncOrder != curr.asyncOrder,
+            listener: (_, state) => _onSendingOrder(state),
+            child: SafeArea(
+              child: _PaymentTypeOption(
+                onTapPaymentGateway: () {
+                  context.read<PaymentCubit>().checkout('Payment Gateway');
+                },
+                onTapTransferBank: () {
+                  context.read<PaymentCubit>().checkout('Transfer Bank');
+                },
+              ),
+            ),
+          )),
     );
   }
 }
