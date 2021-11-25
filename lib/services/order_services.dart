@@ -16,7 +16,7 @@ class OrderServices {
         "key": rajaOngkirKey,
       },
       body: jsonEncode(
-        <String, dynamic>{
+        {
           "origin": sellerCity,
           "weight": totalWeight,
           "destination": destination,
@@ -32,8 +32,6 @@ class OrderServices {
 
     var data = jsonDecode(response.body);
 
-    print(response.body);
-
     CostPayment costPayment = CostPayment.fromJson(
         data['rajaongkir']['results'][0]['costs'][0]['cost'][0]);
 
@@ -44,7 +42,7 @@ class OrderServices {
   static Future<ApiReturnValue<Order>> createOrder(OrderRequest orderRequest,
       {http.Client? client}) async {
     client ??= http.Client();
-    print(token);
+
     Uri url = Uri.parse(baseURL + 'orders');
     var response = await client.post(
       url,
@@ -55,17 +53,22 @@ class OrderServices {
       body: jsonEncode(orderRequest.toJson()),
     );
 
-    print(response.statusCode);
-    if (response.statusCode != 200) {
+    if (response.statusCode == 403) {
       return const ApiReturnValue(
-          message: 'Maaf data pesanan anda masih ada yang salah !!',
-          isSuccess: false);
+        message: 'Token kadaluwarsa',
+        isSuccess: false,
+        isAuth: false,
+      );
+    } else if (response.statusCode != 200) {
+      return const ApiReturnValue(
+        message: 'Maaf data pesanan anda masih ada yang salah !!',
+        isSuccess: false,
+      );
     }
 
     var data = jsonDecode(response.body);
     String message = data['meta']['message'];
     Order order = Order.fromJson(data['data']);
-    print(order);
 
     return ApiReturnValue<Order>(
       message: message,
@@ -87,13 +90,46 @@ class OrderServices {
     request.files.add(multipartFile);
 
     var response = await request.send();
-    var stream = await response.stream.bytesToString();
-    print(stream);
+    await response.stream.bytesToString();
+
     if (response.statusCode == 200) {
       return const ApiReturnValue(
           message: 'Upload foto pembayaran berhasil', isSuccess: true);
     }
     return const ApiReturnValue(
         message: "Upload foto pembayaran gagal", isSuccess: false);
+  }
+
+  static Future<ApiReturnValue<List<Order>>> fetchOrders(
+      {http.Client? client}) async {
+    var userId = locator<AuthPreferences>().getCustomerId();
+
+    client ??= http.Client();
+
+    Uri url = Uri.parse(baseURL + 'orders?customer_id=$userId');
+
+    var response = await client.get(url, headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    });
+
+    if (response.statusCode != 200) {
+      return const ApiReturnValue(
+        message: 'Maaf data pesanan anda tidak ditemukan !!',
+        isSuccess: false,
+      );
+    }
+
+    var data = jsonDecode(response.body);
+    List<Order> orders =
+        (data['data'] as Iterable).map((e) => Order.fromJson(e)).toList();
+
+    print(data);
+
+    return ApiReturnValue<List<Order>>(
+      message: 'Data pesanan ditemukan',
+      isSuccess: true,
+      value: orders,
+    );
   }
 }

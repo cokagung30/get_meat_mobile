@@ -4,9 +4,14 @@ typedef _VerifyButtonAddCartSelector
     = BlocSelector<ProductDetailCubit, ProductDetailState, bool>;
 
 class _AddCartButtonComponent extends StatelessWidget {
-  const _AddCartButtonComponent({Key? key, this.product}) : super(key: key);
+  const _AddCartButtonComponent({
+    Key? key,
+    this.product,
+    this.notes = "",
+  }) : super(key: key);
 
   final Product? product;
+  final String notes;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +29,9 @@ class _AddCartButtonComponent extends StatelessWidget {
               style: GetMeatTextStyle.whiteFontStyle1.copyWith(
                 fontSize: 16.sp,
               ),
-              onPress: (isDiffSeller)
-                  ? null
-                  : () {
-                      context.read<ProductDetailCubit>().addToCart();
-                      Get.toNamed(GetMeatScreen.payment, arguments: {
-                        'product': product,
-                      });
-                    },
+              onPress: () {
+                context.read<ProductDetailCubit>().addToCart(notes);
+              },
             ),
           );
         });

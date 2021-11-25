@@ -44,6 +44,10 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
     }
   }
 
+  void changeNote(String note) {
+    emit(state.copyWith(notes: note));
+  }
+
   void checkDiffrentToSellerOrder(int sellerId, int productId) async {
     int cartCount = await _cartLocalServices.checkProduct(null);
     if (cartCount > 0) {
@@ -52,8 +56,11 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
 
       if (cartCountBySeller > 0) {
         Cart? cart = await _cartLocalServices.getCartProduct(productId);
-        emit(
-            state.copyWith(isDiffSeller: false, quantity: cart?.quantity ?? 1));
+        emit(state.copyWith(
+          isDiffSeller: false,
+          quantity: cart?.quantity ?? 1,
+          notes: cart?.description ?? '',
+        ));
       } else {
         emit(state.copyWith(isDiffSeller: true));
       }
@@ -62,10 +69,10 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
     }
   }
 
-  void addToCart() async {
+  void addToCart(String notes) async {
     Product product = state.asyncProduct.data!;
 
-    int cartCount = await _cartLocalServices.checkProduct(product.id);
+    // int cartCount = await _cartLocalServices.checkProduct(product.id);
 
     Cart cart = Cart(
       productId: product.id,
@@ -75,13 +82,24 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
       sellerId: product.seller.id,
       unit: product.unit,
       photoProduct: product.photoProduct,
+      description: state.notes,
     );
 
-    if (cartCount > 0) {
-      await _cartLocalServices.update(cart);
+    // if (cartCount > 0) {
+    //   await _cartLocalServices.update(cart);
+    // } else {
+    await _cartLocalServices.deleteAll();
+    int inserted = await _cartLocalServices.insert(cart);
+
+    if (inserted > 0) {
+      Cart? newCart = await _cartLocalServices.getCartProduct(product.id);
+
+      emit(state.copyWith(asyncCart: AsyncState.success(newCart)));
     } else {
-      await _cartLocalServices.insert(cart);
+      emit(state.copyWith(asyncCart: AsyncState.error(Exception('Gagal'))));
     }
+
+    // }
   }
 
   void removeAllCart() async {

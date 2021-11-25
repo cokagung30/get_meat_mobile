@@ -8,7 +8,6 @@ import 'package:get_meat_apps/shared/assets.dart';
 import 'package:get_meat_apps/shared/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_meat_apps/shared/text_style.dart';
-import 'package:get_meat_apps/ui/pages/product_detail/product_detail_screen.dart';
 import 'package:get_meat_apps/ui/pages/seller_detail/cubit/seller_detail_cubit.dart';
 import 'package:get_meat_apps/ui/widget/widget.dart';
 import 'package:intl/intl.dart';

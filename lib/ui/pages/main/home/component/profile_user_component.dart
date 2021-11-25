@@ -16,7 +16,7 @@ class _ProfileUserComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GetMeatPhotoProfile(
-            imageUrl: imageURL + '$photoProfile',
+            imageUrl: (photoProfile!.isEmpty) ? null : imageURL + photoProfile,
             width: 50.w,
             height: 50.h,
           ),

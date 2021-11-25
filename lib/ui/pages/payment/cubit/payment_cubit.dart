@@ -18,6 +18,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     required this.productId,
   }) : super(const PaymentState()) {
     getCost(sellerCity, productId);
+    getUser();
   }
 
   final int sellerCity;
@@ -25,12 +26,13 @@ class PaymentCubit extends Cubit<PaymentState> {
 
   final CartLocalServices _cartLocalServices = CartLocalServices();
 
-  void getCost(int sellerCity, int productId) async {
+  Future<void> getCost(int sellerCity, int productId) async {
     emit(state.copyWith(asyncCostPayment: const AsyncState.loading()));
 
     try {
       String? cityId = locator<AuthPreferences>().getCityId();
       Cart? cart = await _cartLocalServices.getCartProduct(productId);
+      print(cart);
       if (cart != null) {
         double totalWeight = 0.0;
 
@@ -50,13 +52,10 @@ class PaymentCubit extends Cubit<PaymentState> {
           ),
         );
 
-        var userResponse = await CustomerService.fetchUser();
-
         emit(
           state.copyWith(
             asyncCostPayment: AsyncState.success(response),
             asyncCart: AsyncState.success(cart),
-            asyncUser: AsyncState.success(userResponse),
           ),
         );
       }
@@ -68,9 +67,24 @@ class PaymentCubit extends Cubit<PaymentState> {
     }
   }
 
-  void checkout(
-    String paymentType,
-  ) async {
+  void getUser() async {
+    emit(state.copyWith(asyncUser: const AsyncState.loading()));
+
+    try {
+      var userResponse = await CustomerService.fetchUser();
+
+      emit(state.copyWith(
+        asyncUser: AsyncState.success(userResponse),
+      ));
+    } catch (e) {
+      print(e);
+      if (e is DioError) {
+        emit(state.copyWith(asyncUser: AsyncState.error(e)));
+      }
+    }
+  }
+
+  void checkout(String paymentType) async {
     emit(state.copyWith(asyncOrder: const AsyncState.loading()));
     var userId = locator<AuthPreferences>().getCustomerId();
     var costAmount = state.asyncCostPayment.data?.value?.value ?? 0;

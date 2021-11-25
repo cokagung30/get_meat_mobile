@@ -35,6 +35,17 @@ class _ItemOrderComponent extends StatelessWidget {
           ),
           _buildItemOrder(),
           SizedBox(
+            height: 8.h,
+          ),
+          Text(
+            'Catatan: ' + (cart?.description != "" ? cart!.description! : '-'),
+            overflow: TextOverflow.ellipsis,
+            style: GetMeatTextStyle.blackFontStyle2.copyWith(
+              fontSize: 12.sp,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          SizedBox(
             height: 16.h,
           ),
           Text(

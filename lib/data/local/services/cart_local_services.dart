@@ -96,4 +96,18 @@ class CartLocalServices {
 
     return count;
   }
+
+  Future<List<Cart>> getAllCart() async {
+    GetMeatDatabases helper = GetMeatDatabases();
+    Database db = await helper.database;
+    var mapList = await db.query(_tableName);
+
+    int count = mapList.length;
+    List<Cart> cartList = <Cart>[];
+    for (int i = 0; i < count; i++) {
+      cartList.add(Cart.fromJson(mapList[i]));
+    }
+
+    return cartList;
+  }
 }

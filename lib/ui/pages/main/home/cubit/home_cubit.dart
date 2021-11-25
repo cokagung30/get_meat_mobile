@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_meat_apps/data/async_state.dart';
-import 'package:get_meat_apps/data/local/services/cart_local_services.dart';
 
 import 'package:get_meat_apps/model/models.dart';
 import 'package:get_meat_apps/services/services.dart';

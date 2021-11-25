@@ -1,5 +1,6 @@
 import 'package:get/route_manager.dart';
 import 'package:get_meat_apps/routes/get_meat_screen.dart';
+import 'package:get_meat_apps/ui/pages/complete_transaction/complete_transaction_screen.dart';
 import 'package:get_meat_apps/ui/pages/main/main_screen.dart';
 import 'package:get_meat_apps/ui/pages/pages.dart';
 import 'package:get/get.dart';
@@ -70,6 +71,12 @@ class GetMeatRoutes {
       name: GetMeatScreen.transferBank,
       page: () => TransferBankScreen(
         order: Get.arguments['order'],
+      ),
+    ),
+    GetPage(
+      name: GetMeatScreen.orderSuccess,
+      page: () => CompleteTransactionScreen(
+        url: Get.arguments['url'],
       ),
     ),
   ];

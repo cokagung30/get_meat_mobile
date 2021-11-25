@@ -8,4 +8,5 @@ class GetMeatAssets {
   static const crossCircle = 'assets/cross_circle.svg';
   static const emptyData = 'assets/empty-data.json';
   static const fileUpload = 'assets/file-upload.json';
+  static const orderPlacedSuccess = 'assets/order-placed-success.json';
 }

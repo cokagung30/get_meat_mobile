@@ -90,6 +90,8 @@ class CustomerService {
       },
     );
 
+    print(response.body);
+
     if (response.statusCode != 200) {
       return const ApiReturnValue(
         message: 'Maaf data user tidak ditemukan, silahkan coba lagi !!',

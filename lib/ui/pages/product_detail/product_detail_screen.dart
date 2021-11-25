@@ -34,9 +34,15 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final TextEditingController _controller = TextEditingController();
+
   Future<void> _onListener(
       ProductDetailState state, BuildContext context) async {
-    if (state.isDiffSeller) {
+    if (state.asyncCart.isSuccess) {
+      Get.toNamed(GetMeatScreen.payment, arguments: {
+        'product': state.asyncProduct.data,
+      });
+    } else if (state.isDiffSeller) {
       showDialog(
         context: context,
         builder: (_) => BlocProvider.value(
@@ -69,8 +75,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return BlocProvider<ProductDetailCubit>(
       create: (context) => ProductDetailCubit(widget.id, widget.sellerId),
       child: BlocListener<ProductDetailCubit, ProductDetailState>(
-        listenWhen: (previous, current) =>
-            previous.isDiffSeller != current.isDiffSeller,
+        listenWhen: (previous, current) {
+          return previous.isDiffSeller != current.isDiffSeller ||
+              previous.asyncCart != current.asyncCart;
+        },
         listener: (_, state) => _onListener(state, _),
         child: CustomViewWithToolbar(
           title: 'Detail Produk',
@@ -119,7 +127,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                         ),
                         _buildDivider(),
-                        const _NoteOrderComponent(),
+                        BlocBuilder<ProductDetailCubit, ProductDetailState>(
+                            builder: (_, state) {
+                          return _NoteOrderComponent(
+                            lastNote: state.notes,
+                            controller: _controller,
+                          );
+                        }),
                         _buildDivider(),
                         Padding(
                           padding: EdgeInsets.only(
@@ -136,9 +150,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: SafeArea(
-                          child: _AddCartButtonComponent(
-                        product: product,
-                      )),
+                        child: _AddCartButtonComponent(
+                          product: product,
+                        ),
+                      ),
                     ),
                   ],
                 );

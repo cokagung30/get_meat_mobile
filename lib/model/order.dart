@@ -43,7 +43,7 @@ class Order extends Equatable {
         typePayment = json['tipe_pembayaran'],
         photoSendProof = json['photo_penerimaan'] ?? '',
         paymentUrl = json['payment_url'] ?? '',
-        orderStatus = json['tipe_pembayaran'],
+        orderStatus = json['status_pemesanan'],
         photoProofPayment = json['photo_bukti_pembayaran'] ?? '',
         orderAddress = json['alamat_pemesanan'],
         costSend = json['biaya_antar'],

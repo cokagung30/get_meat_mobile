@@ -12,7 +12,6 @@ import 'package:get_meat_apps/shared/text_style.dart';
 import 'package:get_meat_apps/ui/pages/payment/cubit/payment_cubit.dart';
 import 'package:get_meat_apps/ui/widget/widget.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 part 'component/header_component.dart';
 part 'component/item_order_component.dart';
@@ -31,7 +30,6 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   Future<void> _onSendingOrder(PaymentState state) async {
-    print(state.asyncOrder);
     Get.back();
     if (state.asyncOrder.isSuccess) {
       if (state.asyncOrder.data!.isSuccess != false) {
@@ -40,29 +38,43 @@ class _PaymentScreenState extends State<PaymentScreen> {
             'order': state.asyncOrder.data!.value!,
           });
         } else {
-          await launch(state.asyncOrder.data!.value!.paymentUrl ?? '');
+          Get.offAllNamed(GetMeatScreen.orderSuccess, arguments: {
+            'url': state.asyncOrder.data!.value!.paymentUrl ?? '',
+          });
         }
       } else {
         showDialog(
             context: context,
             builder: (_) {
               return GetMeatDialogWidget(
-                title: 'Login gagal',
+                title: 'Pemesanan Gagal',
                 subtitle: state.asyncOrder.data!.message!,
                 asset: GetMeatAssets.crossCircle,
               );
             });
       }
     } else if (state.asyncOrder.isError) {
-      showDialog(
-          context: context,
-          builder: (_) {
-            return const GetMeatDialogWidget(
-              title: 'Login gagal',
-              subtitle: 'Terdapat kesalahan, silahkan coba kembali !!',
-              asset: GetMeatAssets.crossCircle,
-            );
-          });
+      if (state.asyncOrder.data!.isAuth! == false) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return const GetMeatDialogWidget(
+                title: 'Sesi Habis',
+                subtitle: 'Sesi habis, silahkan login ulang kembali',
+                asset: GetMeatAssets.crossCircle,
+              );
+            });
+      } else {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return const GetMeatDialogWidget(
+                title: 'Pemesanan Gagal',
+                subtitle: 'Pesanan yang anda lakukan gagal, silahkan coba lagi',
+                asset: GetMeatAssets.crossCircle,
+              );
+            });
+      }
     } else {
       showDialogLoading(context);
     }
@@ -86,8 +98,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             body: BlocBuilder<PaymentCubit, PaymentState>(
               builder: (_, state) {
                 if (state.asyncCostPayment.isSuccess &&
-                    state.asyncUser.isSuccess &&
-                    state.asyncCart.isSuccess) {
+                    state.asyncUser.isSuccess) {
                   return Column(
                     children: [
                       const _HeaderComponent(),
