@@ -6,7 +6,7 @@ import 'package:get_meat_apps/model/models.dart';
 import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/services/services.dart';
 import 'package:get_meat_apps/shared/assets.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:get_meat_apps/shared/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_meat_apps/shared/text_style.dart';
@@ -28,7 +28,12 @@ class HistoryOrderPage extends StatefulWidget {
 }
 
 class _HistoryOrderPageState extends State<HistoryOrderPage> {
-  PageController pageController = PageController(initialPage: 0);
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting('id_ID', null);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HistoryOrderCubit>(

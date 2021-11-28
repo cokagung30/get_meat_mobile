@@ -5,18 +5,18 @@ import 'package:get_meat_apps/data/async_state.dart';
 import 'package:get_meat_apps/model/models.dart';
 import 'package:get_meat_apps/services/services.dart';
 
-part 'transfer_bank_state.dart';
+part 'upload_photo_state.dart';
 
-class TransferBankCubit extends Cubit<TransferBankState> {
-  TransferBankCubit() : super(const TransferBankState());
+class UploadPhotoCubit extends Cubit<UploadPhotoState> {
+  UploadPhotoCubit() : super(const UploadPhotoState());
 
-  Future<void> uploadPhoto(int orderId) async {
+  Future<void> uploadPhoto(int userId) async {
     emit(state.copyWith(asyncUpload: const AsyncState.loading()));
 
     try {
       if (state.photoPathLocal != null) {
-        var result = await OrderServices.uploadProofPayment(
-            state.photoPathLocal!, orderId);
+        var result = await CustomerService.uploadProfilePicture(
+            state.photoPathLocal!, userId);
         emit(state.copyWith(asyncUpload: AsyncState.success(result)));
       }
     } catch (e) {

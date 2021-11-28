@@ -1,7 +1,7 @@
-part of 'transfer_bank_cubit.dart';
+part of 'sended_proof_cubit.dart';
 
-class TransferBankState extends Equatable {
-  const TransferBankState({
+class SendedProofState extends Equatable {
+  const SendedProofState({
     this.asyncUpload = const AsyncState.uninitialized(),
     this.photoPathLocal,
   });
@@ -9,11 +9,11 @@ class TransferBankState extends Equatable {
   final AsyncState<ApiReturnValue<String>> asyncUpload;
   final String? photoPathLocal;
 
-  TransferBankState copyWith({
+  SendedProofState copyWith({
     AsyncState<ApiReturnValue<String>>? asyncUpload,
     String? photoPathLocal,
   }) {
-    return TransferBankState(
+    return SendedProofState(
       asyncUpload: asyncUpload ?? this.asyncUpload,
       photoPathLocal: photoPathLocal ?? this.photoPathLocal,
     );

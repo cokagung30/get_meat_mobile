@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get_meat_apps/data/preferences/auth_preferences.dart';
 import 'package:get_meat_apps/injection.dart';
 import 'package:get_meat_apps/model/request/order_request.dart';
+import 'package:get_meat_apps/model/request/rating_request.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:get_meat_apps/model/models.dart';
@@ -12,6 +13,7 @@ part 'customer_services.dart';
 part 'seller_services.dart';
 part 'product_services.dart';
 part 'order_services.dart';
+part 'rating_services.dart';
 
 String baseURL = 'https://get-meat.baliwork.my.id/api/';
 String imageURL = 'https://get-meat.baliwork.my.id/storage/';

@@ -71,9 +71,6 @@ class _OrderItemsComponent extends StatelessWidget {
                       style: GetMeatTextStyle.blackFontStyle2
                           .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                     ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
                   ],
                 ),
               ],
@@ -112,76 +109,90 @@ class _OrderItemsComponent extends StatelessWidget {
   }
 
   Widget _buildItemOrder(Order order) {
-    return Container(
-      padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w, bottom: 12.h),
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GetMeatPhotoProfile(
-                // ignore: unnecessary_null_comparison
-                imageUrl: (order.product.photoProduct != null)
-                    ? "$imageURL${order.product.photoProduct}"
-                    : null,
-                width: 35,
-                height: 35,
-              ),
-              SizedBox(
-                width: 8.w,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    order.product.productName,
-                    style: GetMeatTextStyle.blackFontStyle2
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Text(
-                    order.product.seller.sellerName,
-                    style: GetMeatTextStyle.blackFontStyle2
-                        .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                NumberFormat.currency(
-                  locale: 'id_ID',
-                  symbol: 'Rp',
-                ).format(order.product.price),
-                style: GetMeatTextStyle.blackFontStyle2
-                    .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              Text(
-                order.quantityOrder.toString() + " ${order.product.unit}",
-                style: GetMeatTextStyle.blackFontStyle2.copyWith(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w300,
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(GetMeatScreen.orderDetail, arguments: {'order': order});
+      },
+      child: Container(
+        padding:
+            EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w, bottom: 12.h),
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GetMeatPhotoProfile(
+                  // ignore: unnecessary_null_comparison
+                  imageUrl: (order.product.photoProduct != null)
+                      ? "$imageURL${order.product.photoProduct}"
+                      : null,
+                  width: 35,
+                  height: 35,
                 ),
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-            ],
-          ),
-        ],
+                SizedBox(
+                  width: 8.w,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      order.product.productName,
+                      style: GetMeatTextStyle.blackFontStyle2
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    Text(
+                      order.product.seller.sellerName,
+                      style: GetMeatTextStyle.blackFontStyle2
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    Text(
+                      DateFormat('yMMMMEEEEd', 'id_ID')
+                          .format(DateTime.parse(order.orderDate)),
+                      style: GetMeatTextStyle.blackFontStyle2
+                          .copyWith(fontSize: 12, fontWeight: FontWeight.w300),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  NumberFormat.currency(
+                    locale: 'id_ID',
+                    symbol: 'Rp',
+                    decimalDigits: 0,
+                  ).format(order.product.price),
+                  style: GetMeatTextStyle.blackFontStyle2
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Text(
+                  order.quantityOrder.toString() + " ${order.product.unit}",
+                  style: GetMeatTextStyle.blackFontStyle2.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

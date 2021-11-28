@@ -124,12 +124,92 @@ class OrderServices {
     List<Order> orders =
         (data['data'] as Iterable).map((e) => Order.fromJson(e)).toList();
 
-    print(data);
-
     return ApiReturnValue<List<Order>>(
       message: 'Data pesanan ditemukan',
       isSuccess: true,
       value: orders,
+    );
+  }
+
+  static Future<ApiReturnValue<bool>> cancelOrder(
+      {required int orderId, http.Client? client}) async {
+    client ??= http.Client();
+
+    Uri url = Uri.parse(baseURL + 'orders/$orderId');
+
+    var response = await client.delete(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+
+    if (response.statusCode != 200) {
+      return const ApiReturnValue(
+        message: 'Maaf data pesanan anda tidak ditemukan !!',
+        isSuccess: false,
+        value: false,
+      );
+    }
+
+    return const ApiReturnValue<bool>(
+      message: 'Pesanan berhasil dibatalkan',
+      isSuccess: true,
+      value: true,
+    );
+  }
+
+  static Future<ApiReturnValue<String>> uploadSendedProof(
+      String picturePath, int orderId,
+      {http.MultipartRequest? request}) async {
+    var url = Uri.parse(baseURL + 'orders/upload_send_proof/$orderId');
+
+    request ??= http.MultipartRequest("POST", url)
+      ..headers["Content-Type"] = "application/json"
+      ..headers["Authorization"] = "Bearer $token";
+
+    var multipartFile = await http.MultipartFile.fromPath('file', picturePath);
+    request.files.add(multipartFile);
+
+    var response = await request.send();
+    await response.stream.bytesToString();
+
+    if (response.statusCode == 200) {
+      return const ApiReturnValue(
+          message: 'Upload foto bukti penerimaan berhasil', isSuccess: true);
+    }
+
+    return const ApiReturnValue(
+        message: "Upload foto bukti penerimaan gagal", isSuccess: false);
+  }
+
+  static Future<ApiReturnValue<bool>> finishOrder(
+      {required int orderId, http.Client? client}) async {
+    client ??= http.Client();
+
+    Uri url = Uri.parse(baseURL + 'orders/finish/$orderId');
+
+    var response = await client.put(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+
+    if (response.statusCode != 200) {
+      return const ApiReturnValue(
+        message: 'Maaf data pesanan anda tidak ditemukan !!',
+        isSuccess: false,
+        value: false,
+      );
+    }
+
+    return const ApiReturnValue<bool>(
+      message: 'Pesanan berhasil terkirim, terima kasih',
+      isSuccess: true,
+      value: true,
     );
   }
 }

@@ -1,15 +1,19 @@
 import 'package:get/route_manager.dart';
 import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/ui/pages/complete_transaction/complete_transaction_screen.dart';
+import 'package:get_meat_apps/ui/pages/detail_order/detail_order_screen.dart';
 import 'package:get_meat_apps/ui/pages/main/main_screen.dart';
 import 'package:get_meat_apps/ui/pages/pages.dart';
 import 'package:get/get.dart';
 import 'package:get_meat_apps/ui/pages/payment/payment_screen.dart';
 import 'package:get_meat_apps/ui/pages/product_detail/product_detail_screen.dart';
+import 'package:get_meat_apps/ui/pages/rating/rating_screen.dart';
 import 'package:get_meat_apps/ui/pages/search_products/search_product_screen.dart';
 import 'package:get_meat_apps/ui/pages/search_sellers/search_sellers_screen.dart';
 import 'package:get_meat_apps/ui/pages/seller_detail/seller_detail_screen.dart';
+import 'package:get_meat_apps/ui/pages/sended_proof/sended_proof_screen.dart';
 import 'package:get_meat_apps/ui/pages/transfer_bank/transfer_bank_screen.dart';
+import 'package:get_meat_apps/ui/pages/update_photo_profile/upload_photo_screen.dart';
 
 class GetMeatRoutes {
   static final screen = [
@@ -78,6 +82,34 @@ class GetMeatRoutes {
       page: () => CompleteTransactionScreen(
         url: Get.arguments['url'],
       ),
+    ),
+    GetPage(
+      name: GetMeatScreen.orderDetail,
+      page: () => DetailOrderScreen(
+        order: Get.arguments['order'],
+      ),
+    ),
+    GetPage(
+      name: GetMeatScreen.orderFinish,
+      page: () => SendedProofScreen(
+        order: Get.arguments['order'],
+      ),
+    ),
+    GetPage(
+      name: GetMeatScreen.orderFinish,
+      page: () => SendedProofScreen(
+        order: Get.arguments['order'],
+      ),
+    ),
+    GetPage(
+      name: GetMeatScreen.updatePhotoProfile,
+      page: () => UpdatePhotoProfile(
+        user: Get.arguments['user'],
+      ),
+    ),
+    GetPage(
+      name: GetMeatScreen.ratingUser,
+      page: () => const RatingScreen(),
     ),
   ];
 }

@@ -2,6 +2,11 @@ part of '../profile_page.dart';
 
 // ignore: must_be_immutable
 class _ProfileUserLoggedComponent extends StatelessWidget {
+  _ProfileUserLoggedComponent({
+    this.user,
+  });
+
+  final User? user;
   var photoProfile = locator<AuthPreferences>().getCustomerPhotoProfile();
   var displayName = locator<AuthPreferences>().getCustomerName();
   var email = locator<AuthPreferences>().getCustomerEmail();
@@ -26,8 +31,9 @@ class _ProfileUserLoggedComponent extends StatelessWidget {
               color: Colors.white,
             ),
             child: GetMeatPhotoProfile(
-              imageUrl:
-                  (photoProfile == null) ? null : "$imageURL$photoProfile",
+              imageUrl: (user?.customerProfilePicture == null)
+                  ? null
+                  : "$imageURL${user?.customerProfilePicture}",
               width: 130,
               height: 130,
             ),
@@ -38,10 +44,11 @@ class _ProfileUserLoggedComponent extends StatelessWidget {
           Column(
             children: [
               Text(
-                displayName ?? '',
+                user?.customerName ?? '',
                 style: GetMeatTextStyle.blackFontStyle1,
               ),
-              Text(email ?? '', style: GetMeatTextStyle.grayFontStyle2),
+              Text(user?.customerEmail ?? '',
+                  style: GetMeatTextStyle.grayFontStyle2),
             ],
           )
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:get_meat_apps/data/async_state.dart';
 import 'package:get_meat_apps/data/preferences/auth_preferences.dart';
 import 'package:get_meat_apps/injection.dart';
 import 'package:get_meat_apps/model/models.dart';
@@ -10,6 +11,7 @@ import 'package:get_meat_apps/shared/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_meat_apps/shared/text_style.dart';
 import 'package:get_meat_apps/ui/pages/main/home/cubit/home_cubit.dart';
+import 'package:get_meat_apps/ui/pages/main/profile/cubit/profile_cubit.dart';
 import 'package:get_meat_apps/ui/widget/widget.dart';
 import 'package:intl/intl.dart';
 

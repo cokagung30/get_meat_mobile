@@ -7,4 +7,5 @@ class GetMeatColors {
   static const lightGray = Color(0xff7D8797);
   static const green = Color(0xff0BCAD4);
   static const yellow = Color(0xffFFCD00);
+  static const red = Color(0xffE06379);
 }

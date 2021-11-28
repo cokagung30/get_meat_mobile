@@ -12,4 +12,8 @@ class GetMeatScreen {
   static const payment = '/payment/:id';
   static const transferBank = '/transfer-bank';
   static const orderSuccess = '/order-success/:url';
+  static const orderDetail = '/order-detail/:order';
+  static const orderFinish = '/order-finish/:order';
+  static const updatePhotoProfile = '/update-photo-profile/:userId';
+  static const ratingUser = '/rating';
 }

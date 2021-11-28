@@ -32,7 +32,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     try {
       String? cityId = locator<AuthPreferences>().getCityId();
       Cart? cart = await _cartLocalServices.getCartProduct(productId);
-      print(cart);
+
       if (cart != null) {
         double totalWeight = 0.0;
 
@@ -60,7 +60,6 @@ class PaymentCubit extends Cubit<PaymentState> {
         );
       }
     } catch (e) {
-      print(e);
       if (e is DioError) {
         emit(state.copyWith(asyncCostPayment: AsyncState.error(e)));
       }
