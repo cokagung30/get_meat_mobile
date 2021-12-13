@@ -4,6 +4,7 @@ import 'package:get_meat_apps/data/preferences/auth_preferences.dart';
 import 'package:get_meat_apps/injection.dart';
 import 'package:get_meat_apps/model/request/order_request.dart';
 import 'package:get_meat_apps/model/request/rating_request.dart';
+import 'package:get_meat_apps/model/request/user_request.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:get_meat_apps/model/models.dart';

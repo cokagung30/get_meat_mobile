@@ -52,48 +52,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
           leadingIcon: Icons.arrow_back,
           onLeadingIconTap: () => Get.back(),
           title: 'Daftar Akun',
-          body: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.h),
-              child: FormBuilder(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _CustomerNameField(_customerNameTextField),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    _EmailCustomerTextField(_emailTextField),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    _PhoneNumberTextField(_phoneNumberTextField),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    _WhatsappNumberTextField(_whatsappNumberTextField),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    _PasswordCustomerTextField(_passwordTextField),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    _AddressTextField(_addressTextField),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    const _ProvinceDropdownField(),
-                    SizedBox(
-                      height: 24.h,
-                    ),
-                    const _CitiesDropDownField(),
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    const _SignUpButton(),
-                  ],
+          body: Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.h),
+                child: FormBuilder(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _CustomerNameField(_customerNameTextField),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      _EmailCustomerTextField(_emailTextField),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      _PhoneNumberTextField(_phoneNumberTextField),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      _WhatsappNumberTextField(_whatsappNumberTextField),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      _PasswordCustomerTextField(_passwordTextField),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      _AddressTextField(_addressTextField),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      const _ProvinceDropdownField(),
+                      SizedBox(
+                        height: 24.h,
+                      ),
+                      const _CitiesDropDownField(),
+                      SizedBox(
+                        height: 40.h,
+                      ),
+                      const _SignUpButton(),
+                    ],
+                  ),
                 ),
               ),
             ),

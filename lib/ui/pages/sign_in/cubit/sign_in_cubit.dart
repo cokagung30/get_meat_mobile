@@ -52,7 +52,6 @@ class SignInCubit extends Cubit<SignInState> {
 
       emit(state.copyWith(asyncUserLogged: AsyncState.success(result)));
     } catch (e) {
-      print(e);
       if (e is DioError) {
         emit(state.copyWith(asyncUserLogged: AsyncState.error(e)));
       }

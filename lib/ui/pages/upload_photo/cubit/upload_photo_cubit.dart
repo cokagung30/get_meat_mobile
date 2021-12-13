@@ -20,7 +20,6 @@ class UploadPhotoCubit extends Cubit<UploadPhotoState> {
         emit(state.copyWith(asyncUpload: AsyncState.success(result)));
       }
     } catch (e) {
-      print(e);
       if (e is DioError) {
         emit(state.copyWith(asyncUpload: AsyncState.error(e)));
       }

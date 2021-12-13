@@ -12,25 +12,19 @@ class GetMeatTextInput extends StatelessWidget {
     this.onSuffixIconClick,
     this.onChanged,
     this.validators,
+    this.initialValue,
   }) : super(key: key);
 
   final String label;
-
   final String keyName;
-
   final GlobalKey<FormBuilderFieldState>? keyField;
-
   final GestureTapCallback? onSuffixIconClick;
-
   final TextInputType keyboardType;
-
   final ValueChanged<String?>? onChanged;
-
   final FormFieldValidator<String>? validators;
-
   final bool obscureText;
-
   final bool showObscureIcon;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +41,7 @@ class GetMeatTextInput extends StatelessWidget {
         FormBuilderTextField(
           key: keyField,
           name: keyName,
+          initialValue: initialValue,
           obscureText: obscureText,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(

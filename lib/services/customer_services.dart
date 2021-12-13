@@ -90,8 +90,6 @@ class CustomerService {
       },
     );
 
-    print(response.body);
-
     if (response.statusCode != 200) {
       return const ApiReturnValue(
         message: 'Maaf data user tidak ditemukan, silahkan coba lagi !!',
@@ -106,6 +104,41 @@ class CustomerService {
       message: data['meta']['message'],
       isSuccess: true,
       value: user,
+    );
+  }
+
+  static Future<ApiReturnValue<User>> updateUser({
+    UserRequest? request,
+    http.Client? client,
+  }) async {
+    client ??= http.Client();
+
+    var userId = locator<AuthPreferences>().getCustomerId();
+
+    Uri url = Uri.parse(baseURL + 'customer/$userId');
+    var response = await client.put(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: jsonEncode(request!.toJson()),
+    );
+
+    if (response.statusCode != 200) {
+      return const ApiReturnValue(
+        message: 'Maaf datamu masih ada yang salah !!',
+        isSuccess: false,
+      );
+    }
+
+    var data = jsonDecode(response.body);
+    User userData = User.fromJson(data['data']);
+
+    return ApiReturnValue<User>(
+      message: data['meta']['message'],
+      isSuccess: true,
+      value: userData,
     );
   }
 }

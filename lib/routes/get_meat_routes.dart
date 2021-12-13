@@ -2,6 +2,7 @@ import 'package:get/route_manager.dart';
 import 'package:get_meat_apps/routes/get_meat_screen.dart';
 import 'package:get_meat_apps/ui/pages/complete_transaction/complete_transaction_screen.dart';
 import 'package:get_meat_apps/ui/pages/detail_order/detail_order_screen.dart';
+import 'package:get_meat_apps/ui/pages/edit_profile/edit_profile_screen.dart';
 import 'package:get_meat_apps/ui/pages/main/main_screen.dart';
 import 'package:get_meat_apps/ui/pages/pages.dart';
 import 'package:get/get.dart';
@@ -110,6 +111,10 @@ class GetMeatRoutes {
     GetPage(
       name: GetMeatScreen.ratingUser,
       page: () => const RatingScreen(),
+    ),
+    GetPage(
+      name: GetMeatScreen.editProfile,
+      page: () => const EditProfileScreen(),
     ),
   ];
 }

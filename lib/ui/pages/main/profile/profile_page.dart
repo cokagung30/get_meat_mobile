@@ -47,10 +47,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     user: state.asyncUser.data!.value,
                   ),
                   SizedBox(height: 30.h),
-                  const _ProfileItemOptionComponent(
+                  _ProfileItemOptionComponent(
                     icon: Icons.account_circle_outlined,
                     title: 'Edit Data Diri',
                     subtitle: 'Perbaharui Data Diri Disini',
+                    onTap: () {
+                      Get.toNamed(
+                        GetMeatScreen.editProfile,
+                      );
+                    },
                   ),
                   SizedBox(height: 16.h),
                   const _ProfileItemOptionComponent(

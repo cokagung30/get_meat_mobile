@@ -50,9 +50,7 @@ class _UploadPhotoScreenState extends State<UploadPhotoScreen> {
         listenWhen: (previous, current) {
           return previous.asyncUpload != current.asyncUpload;
         },
-        listener: (_, state) {
-          _onUploadPhoto(state);
-        },
+        listener: (_, state) => _onUploadPhoto(state),
         child: CustomViewWithToolbar(
           leadingIcon: Icons.arrow_back,
           onLeadingIconTap: () => Get.back(),
