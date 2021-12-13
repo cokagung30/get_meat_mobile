@@ -1,15 +1,15 @@
-part of '../edit_profile_screen.dart';
+part of '../forgot_password_screen.dart';
 
-class _EmailCustomerField extends StatelessWidget {
-  const _EmailCustomerField(this.keyField, this.emailCustomer);
+class _CustomerEmailField extends StatelessWidget {
+  const _CustomerEmailField(
+    this.keyField,
+  );
 
   final GlobalKey<FormBuilderFieldState>? keyField;
-  final String emailCustomer;
 
   @override
   Widget build(BuildContext context) {
     return GetMeatTextInput(
-      initialValue: emailCustomer,
       label: 'Email',
       keyName: 'email',
       keyboardType: TextInputType.emailAddress,
@@ -19,8 +19,9 @@ class _EmailCustomerField extends StatelessWidget {
         FormBuilderValidators.required(context),
         FormBuilderValidators.email(context)
       ]),
-      onChanged: (value) =>
-          context.read<EditProfileCubit>().emailChanged(value ?? emailCustomer),
+      onChanged: (value) {
+        context.read<ForgotPasswordCubit>().emailChanged(value ?? '', true);
+      },
     );
   }
 }

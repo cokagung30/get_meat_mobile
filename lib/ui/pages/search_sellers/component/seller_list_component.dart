@@ -10,8 +10,7 @@ class _SellerListComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
+    return Expanded(
       child: ListView(
         shrinkWrap: true,
         children:

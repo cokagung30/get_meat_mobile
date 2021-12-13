@@ -17,4 +17,5 @@ class GetMeatScreen {
   static const updatePhotoProfile = '/update-photo-profile/:userId';
   static const ratingUser = '/rating';
   static const editProfile = '/edit-profile';
+  static const changePassword = '/change-password';
 }

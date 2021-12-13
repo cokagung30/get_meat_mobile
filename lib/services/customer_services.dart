@@ -141,4 +141,37 @@ class CustomerService {
       value: userData,
     );
   }
+
+  static Future<ApiReturnValue<bool>> updatePassword({
+    ChangePasswordRequest? request,
+    http.Client? client,
+  }) async {
+    client ??= http.Client();
+
+    var userId = locator<AuthPreferences>().getCustomerId();
+
+    Uri url = Uri.parse(baseURL + 'customer/change_password/$userId');
+    var response = await client.put(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: jsonEncode(request!.toJson()),
+    );
+
+    if (response.statusCode != 200) {
+      return const ApiReturnValue(
+        message: 'Maaf datamu masih ada yang salah !!',
+        isSuccess: false,
+      );
+    }
+
+    var data = jsonDecode(response.body);
+    return ApiReturnValue<bool>(
+      message: data['meta']['message'],
+      isSuccess: true,
+      value: true,
+    );
+  }
 }

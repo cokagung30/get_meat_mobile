@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 class UserRequest extends Equatable {
   const UserRequest({
@@ -34,4 +35,28 @@ class UserRequest extends Equatable {
         customerWhatsappNumber,
         customerAddress,
       ];
+}
+
+class ChangePasswordRequest extends Equatable {
+  const ChangePasswordRequest({
+    required this.customerEmail,
+    required this.oldPassword,
+    required this.newPassword,
+  });
+
+  final String customerEmail;
+  final String oldPassword;
+  final String newPassword;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{
+      'email_pembeli': customerEmail,
+      'old_password': oldPassword,
+      'new_password': newPassword,
+    };
+    return map;
+  }
+
+  @override
+  List<Object?> get props => [customerEmail, oldPassword, newPassword];
 }

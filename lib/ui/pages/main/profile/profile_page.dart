@@ -58,10 +58,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                   ),
                   SizedBox(height: 16.h),
-                  const _ProfileItemOptionComponent(
+                  _ProfileItemOptionComponent(
                     icon: Icons.lock_outlined,
                     title: 'Edit Password',
                     subtitle: 'Perbaharui Password Disini',
+                    onTap: () {
+                      Get.toNamed(GetMeatScreen.changePassword);
+                    },
                   ),
                   SizedBox(height: 16.h),
                   _ProfileItemOptionComponent(
