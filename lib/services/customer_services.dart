@@ -60,20 +60,23 @@ class CustomerService {
       body: jsonEncode({"email_pembeli": email, "password": password}),
     );
 
-    if (response.statusCode != 200) {
-      return const ApiReturnValue(
-          message: 'Maaf datamu masih ada yang salah !!', isSuccess: false);
-    }
-
     var data = jsonDecode(response.body);
 
-    User userData = User.fromJson(data['data']['customer']);
+    if (response.statusCode != 200) {
+      return const ApiReturnValue<User>(
+        message: 'Maaf datamu masih ada yang salah !!',
+        isSuccess: false,
+        value: null,
+      );
+    } else {
+      User userData = User.fromJson(data['data']['customer']);
 
-    return ApiReturnValue<User>(
-      message: data['data']['access_token'],
-      isSuccess: true,
-      value: userData,
-    );
+      return ApiReturnValue<User>(
+        message: data['data']['access_token'],
+        isSuccess: true,
+        value: userData,
+      );
+    }
   }
 
   static Future<ApiReturnValue<User>> fetchUser({http.Client? client}) async {

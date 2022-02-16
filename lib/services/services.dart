@@ -16,8 +16,8 @@ part 'product_services.dart';
 part 'order_services.dart';
 part 'rating_services.dart';
 
-String baseURL = 'https://get-meat.baliwork.my.id/api/';
-String imageURL = 'https://get-meat.baliwork.my.id/storage/';
+String baseURL = 'https://get-meat.baliworkberkarya.com/api/';
+String imageURL = 'https://get-meat.baliworkberkarya.com/storage/';
 String rajaOngkirURL = 'https://api.rajaongkir.com/starter/cost';
 
 String rajaOngkirKey = 'd1ecd6e8c8deb62aba88f5b255f8b1c8';

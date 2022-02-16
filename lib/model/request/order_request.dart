@@ -10,6 +10,7 @@ class OrderRequest extends Equatable {
     required this.sendCost,
     required this.orderAddress,
     required this.paymentType,
+    required this.unit,
   });
 
   final int sellerId;
@@ -17,9 +18,10 @@ class OrderRequest extends Equatable {
   final int customerId;
   final int totalPayment;
   final int sendCost;
-  final int quantity;
+  final double quantity;
   final String orderAddress;
   final String paymentType;
+  final String unit;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{
@@ -31,6 +33,7 @@ class OrderRequest extends Equatable {
       "quantity": quantity,
       "order_address": orderAddress,
       "payment_type": paymentType,
+      "unit": unit,
     };
     return map;
   }
@@ -45,5 +48,6 @@ class OrderRequest extends Equatable {
         quantity,
         orderAddress,
         paymentType,
+        unit,
       ];
 }

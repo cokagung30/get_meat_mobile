@@ -63,7 +63,7 @@ class _ProductListComponent extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Stok: ${product.stock} ${product.unit}',
+                        'Stok: ${product.stock / 1000} kilogram',
                         style: GetMeatTextStyle.grayFontStyle1.copyWith(
                           fontSize: 10.sp,
                           fontWeight: FontWeight.w300,

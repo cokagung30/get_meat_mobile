@@ -50,7 +50,6 @@ class _DetailOrderScreenState extends State<DetailOrderScreen> {
         context: context,
         builder: (_) {
           return GetMeatDialogWidget(
-            title: 'Pesanan Diselesaikan',
             subtitle: 'Pesanan berhasil diselesaikan !!',
             asset: GetMeatAssets.checkCircle,
             positiveButton: GetMeatDialogButtonModel(
@@ -117,12 +116,14 @@ class _DetailOrderScreenState extends State<DetailOrderScreen> {
                         SizedBox(
                           height: 24.h,
                         ),
-                        (widget.order.typePayment != "Payment Gateway" &&
-                                widget.order.orderStatus != "1")
-                            ? _PhotoProofTransfer(
-                                photoProofTransfer:
-                                    widget.order.photoProofPayment ?? "",
-                              )
+                        (widget.order.typePayment != "Payment Gateway" ||
+                                widget.order.typePayment != "COD")
+                            ? ((widget.order.photoProofPayment != "")
+                                ? _PhotoProofTransfer(
+                                    photoProofTransfer:
+                                        widget.order.photoProofPayment ?? "",
+                                  )
+                                : Container())
                             : Container(),
                         SizedBox(
                           height: 15.h,

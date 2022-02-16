@@ -3,7 +3,7 @@ part of 'models.dart';
 class ApiReturnValue<T> {
   final T? value;
   final String? message;
-  final bool? isSuccess;
+  final bool isSuccess;
   final bool? isAuth;
 
   const ApiReturnValue({

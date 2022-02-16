@@ -91,15 +91,17 @@ class PaymentCubit extends Cubit<PaymentState> {
     try {
       Cart? cart = await _cartLocalServices.getCartProduct(productId);
       var response = await OrderServices.createOrder(OrderRequest(
-        sellerId: cart?.sellerId ?? 0,
-        productId: cart?.productId ?? 0,
-        quantity: cart?.quantity ?? 0,
-        customerId: int.parse(userId ?? '0'),
-        totalPayment: (cart?.quantity ?? 0) * (cart?.productPrice ?? 0),
-        sendCost: (costAmount - (costAmount * (10 / 100))).toInt(),
-        orderAddress: state.asyncUser.data?.value?.customerAddress ?? '',
-        paymentType: paymentType,
-      ));
+          sellerId: cart?.sellerId ?? 0,
+          productId: cart?.productId ?? 0,
+          quantity: cart?.quantity ?? 0,
+          customerId: int.parse(userId ?? '0'),
+          totalPayment:
+              (((cart?.quantity ?? 0) / 1000) * (cart?.productPrice ?? 0))
+                  .toInt(),
+          sendCost: (costAmount - (costAmount * (10 / 100))).toInt(),
+          orderAddress: state.asyncUser.data?.value?.customerAddress ?? '',
+          paymentType: paymentType,
+          unit: cart?.unit ?? 'gram'));
 
       await _cartLocalServices.deleteAll();
 
@@ -109,7 +111,6 @@ class PaymentCubit extends Cubit<PaymentState> {
         ),
       );
     } catch (e) {
-      print(e);
       if (e is DioError) {
         emit(state.copyWith(asyncOrder: AsyncState.error(e)));
       }

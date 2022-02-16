@@ -58,7 +58,8 @@ class _ProductInformationComponent extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: '${product?.stock} ${product?.unit}',
+                          text:
+                              '${product?.stock} g / ${(product?.stock ?? 0) / 1000} kg',
                           style: GetMeatTextStyle.blackFontStyle2.copyWith(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,

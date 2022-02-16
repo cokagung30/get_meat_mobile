@@ -13,6 +13,9 @@ class GetMeatTextStyle {
   static TextStyle blackFontStyle3 = GoogleFonts.nunito().copyWith(
       color: Colors.black, fontSize: 20.sp, fontWeight: FontWeight.w600);
 
+  static TextStyle blackFontStyle4 = GoogleFonts.nunito().copyWith(
+      color: Colors.black, fontSize: 14.sp, fontWeight: FontWeight.w600);
+
   static TextStyle whiteFontStyle1 = GoogleFonts.nunito().copyWith(
       color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.w600);
 

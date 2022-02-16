@@ -48,8 +48,8 @@ class _ItemOrderComponent extends StatelessWidget {
                 height: 8.h,
               ),
               _buildDetailTransactioItem(
-                  title: 'Dada Ayam',
-                  amount: ((order.quantityOrder) * (order.product.price))
+                  title: 'Total Harga',
+                  amount: ((order.quantityOrder) * (order.product.price / 1000))
                       .toDouble()),
               SizedBox(
                 height: 6.h,
@@ -99,11 +99,11 @@ class _ItemOrderComponent extends StatelessWidget {
                   style: GetMeatTextStyle.blackFontStyle2,
                 ),
                 Text(
-                  NumberFormat.currency(
+                  '${NumberFormat.currency(
                     locale: 'id-ID',
                     symbol: 'Rp. ',
                     decimalDigits: 0,
-                  ).format(order.product.price),
+                  ).format(order.product.price)} / kilogram',
                   style: GetMeatTextStyle.grayFontStyle1.copyWith(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.normal,
@@ -114,7 +114,7 @@ class _ItemOrderComponent extends StatelessWidget {
           ],
         ),
         Text(
-          '${order.quantityOrder} ${order.product.unit}',
+          '${order.quantityOrder} g',
           style: GetMeatTextStyle.grayFontStyle1.copyWith(fontSize: 14.sp),
         )
       ],

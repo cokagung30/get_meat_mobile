@@ -37,6 +37,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
           Get.offAllNamed(GetMeatScreen.transferBank, arguments: {
             'order': state.asyncOrder.data!.value!,
           });
+        } else if (state.asyncOrder.data!.value!.typePayment == 'COD') {
+          showDialog(
+              context: context,
+              builder: (_) {
+                return GetMeatDialogWidget(
+                  subtitle: 'Pesananmu sudah kami sampaikan ke pedagang !',
+                  asset: GetMeatAssets.checkCircle,
+                  positiveButton: GetMeatDialogButtonModel(
+                    color: GetMeatColors.green,
+                    label: 'OK',
+                    onTap: () {
+                      Get.offAllNamed(GetMeatScreen.main);
+                    },
+                  ),
+                );
+              });
         } else {
           Get.offAllNamed(GetMeatScreen.orderSuccess, arguments: {
             'url': state.asyncOrder.data!.value!.paymentUrl ?? '',
@@ -163,6 +179,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 },
                 onTapTransferBank: () {
                   context.read<PaymentCubit>().checkout('Transfer Bank');
+                },
+                onTapCOD: () {
+                  context.read<PaymentCubit>().checkout('COD');
                 },
               ),
             ),

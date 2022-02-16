@@ -1,15 +1,16 @@
 part of '../payment_screen.dart';
 
 class _PaymentTypeOption extends StatelessWidget {
-  const _PaymentTypeOption(
-      {Key? key,
-      required this.onTapTransferBank,
-      required this.onTapPaymentGateway})
-      : super(key: key);
+  const _PaymentTypeOption({
+    Key? key,
+    required this.onTapTransferBank,
+    required this.onTapPaymentGateway,
+    required this.onTapCOD,
+  }) : super(key: key);
 
   final GestureTapCallback onTapTransferBank;
-
   final GestureTapCallback onTapPaymentGateway;
+  final GestureTapCallback? onTapCOD;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,17 @@ class _PaymentTypeOption extends StatelessWidget {
             style: GetMeatTextStyle.blackFontStyle2.copyWith(fontSize: 16),
           ),
           onTap: onTapPaymentGateway,
+        ),
+        ListTile(
+          leading: const Icon(
+            Icons.approval_outlined,
+            size: 24,
+          ),
+          title: Text(
+            "COD",
+            style: GetMeatTextStyle.blackFontStyle2.copyWith(fontSize: 16),
+          ),
+          onTap: onTapCOD,
         ),
       ],
     );

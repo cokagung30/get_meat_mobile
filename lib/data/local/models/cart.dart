@@ -18,7 +18,7 @@ class Cart extends Equatable {
   final int productId;
   final String productName;
   final int productPrice;
-  final int quantity;
+  final double quantity;
   final String? photoProduct;
   final String? description;
   final int sellerId;

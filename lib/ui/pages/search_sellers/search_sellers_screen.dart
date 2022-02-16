@@ -37,8 +37,10 @@ class _SearchSellersScreenState extends State<SearchSellersScreen> {
                     return _SellerListComponent(
                         sellers: state.sellers.data ?? []);
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return const Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     );
                   }
                 },

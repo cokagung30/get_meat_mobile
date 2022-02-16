@@ -8,10 +8,12 @@ class _AddCartButtonComponent extends StatelessWidget {
     Key? key,
     this.product,
     this.notes = "",
+    this.isValid = false,
   }) : super(key: key);
 
   final Product? product;
   final String notes;
+  final bool isValid;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,11 @@ class _AddCartButtonComponent extends StatelessWidget {
               style: GetMeatTextStyle.whiteFontStyle1.copyWith(
                 fontSize: 16.sp,
               ),
-              onPress: () {
-                context.read<ProductDetailCubit>().addToCart(notes);
-              },
+              onPress: (!isValid)
+                  ? null
+                  : () {
+                      context.read<ProductDetailCubit>().addToCart(notes);
+                    },
             ),
           );
         });

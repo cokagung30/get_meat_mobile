@@ -37,14 +37,14 @@ class _ItemOrderComponent extends StatelessWidget {
           SizedBox(
             height: 8.h,
           ),
-          Text(
-            'Catatan: ' + (cart?.description != "" ? cart!.description! : '-'),
-            overflow: TextOverflow.ellipsis,
-            style: GetMeatTextStyle.blackFontStyle2.copyWith(
-              fontSize: 12.sp,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
+          // Text(
+          //   'Catatan: ' + (cart?.description != "" ? cart!.description! : '-'),
+          //   overflow: TextOverflow.ellipsis,
+          //   style: GetMeatTextStyle.blackFontStyle2.copyWith(
+          //     fontSize: 12.sp,
+          //     fontStyle: FontStyle.italic,
+          //   ),
+          // ),
           SizedBox(
             height: 16.h,
           ),
@@ -60,22 +60,24 @@ class _ItemOrderComponent extends StatelessWidget {
               SizedBox(
                 height: 8.h,
               ),
-              _buildDetailTransactioItem(
-                  title: 'Dada Ayam',
-                  amount: ((cart?.quantity ?? 0) * (cart?.productPrice ?? 0))
+              _buildDetailTransactionItem(
+                  title: 'Total Harga',
+                  amount: (((cart?.quantity ?? 0) / 1000) *
+                          (cart?.productPrice ?? 0))
                       .toDouble()),
               SizedBox(
                 height: 6.h,
               ),
-              _buildDetailTransactioItem(
+              _buildDetailTransactionItem(
                   title: 'Ongkir',
                   amount: costAmount - (costAmount * (10 / 100))),
               SizedBox(
                 height: 6.h,
               ),
-              _buildDetailTransactioItem(
+              _buildDetailTransactionItem(
                 title: 'Total Bayar',
-                amount: ((cart?.quantity ?? 0) * (cart?.productPrice ?? 0)) +
+                amount: (((cart?.quantity ?? 0) / 1000) *
+                        (cart?.productPrice ?? 0)) +
                     (costAmount - (costAmount * (10 / 100))),
                 isTotalPrice: true,
               ),
@@ -111,11 +113,11 @@ class _ItemOrderComponent extends StatelessWidget {
                   style: GetMeatTextStyle.blackFontStyle2,
                 ),
                 Text(
-                  NumberFormat.currency(
+                  '${NumberFormat.currency(
                     locale: 'id-ID',
                     symbol: 'Rp. ',
                     decimalDigits: 0,
-                  ).format(cart?.productPrice ?? 0),
+                  ).format(cart?.productPrice ?? 0)} / kilogram',
                   style: GetMeatTextStyle.grayFontStyle1.copyWith(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.normal,
@@ -126,14 +128,14 @@ class _ItemOrderComponent extends StatelessWidget {
           ],
         ),
         Text(
-          '${cart?.quantity ?? '0'} ${cart?.unit ?? 'kilo'}',
+          '${(cart?.quantity ?? 0).toStringAsFixed(0)} g',
           style: GetMeatTextStyle.grayFontStyle1.copyWith(fontSize: 14.sp),
         )
       ],
     );
   }
 
-  Widget _buildDetailTransactioItem(
+  Widget _buildDetailTransactionItem(
       {required String title,
       required double amount,
       bool isTotalPrice = false}) {

@@ -48,9 +48,17 @@ class SignInCubit extends Cubit<SignInState> {
         state.password.item1!,
       );
 
-      locator<AuthPreferences>().setPrefData(result.message!, result.value!);
+      if (result.isSuccess) {
+        locator<AuthPreferences>().setPrefData(result.message!, result.value!);
+      }
 
-      emit(state.copyWith(asyncUserLogged: AsyncState.success(result)));
+      emit(
+        state.copyWith(
+          asyncUserLogged: AsyncState.success(
+            result.isSuccess,
+          ),
+        ),
+      );
     } catch (e) {
       if (e is DioError) {
         emit(state.copyWith(asyncUserLogged: AsyncState.error(e)));

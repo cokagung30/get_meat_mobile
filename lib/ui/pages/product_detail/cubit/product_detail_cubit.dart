@@ -13,7 +13,7 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
   ProductDetailCubit(this.id, this.sellerId)
       : super(const ProductDetailState()) {
     loadProductDetail();
-    checkDiffrentToSellerOrder(sellerId, id);
+    checkDifferentToSellerOrder(sellerId, id);
   }
 
   final int id;
@@ -48,7 +48,27 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
     emit(state.copyWith(notes: note));
   }
 
-  void checkDiffrentToSellerOrder(int sellerId, int productId) async {
+  void changeQuantity(String quantity) {
+    bool isValid = false;
+    double inputQuantity = 0;
+    if (quantity.isNotEmpty) {
+      inputQuantity = double.parse(quantity);
+      isValid = true;
+      if (state.unit == 'gram' && inputQuantity < 100) {
+        isValid = false;
+      } else if (state.unit == 'kilogram' && (inputQuantity * 1000) < 100) {
+        isValid = false;
+      } else {
+        isValid = true;
+      }
+    }
+    emit(state.copyWith(
+      validated: isValid,
+      quantity: inputQuantity,
+    ));
+  }
+
+  void checkDifferentToSellerOrder(int sellerId, int productId) async {
     int cartCount = await _cartLocalServices.checkProduct(null);
     if (cartCount > 0) {
       int cartCountBySeller =
@@ -72,22 +92,17 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
   void addToCart(String notes) async {
     Product product = state.asyncProduct.data!;
 
-    // int cartCount = await _cartLocalServices.checkProduct(product.id);
-
     Cart cart = Cart(
       productId: product.id,
       productName: product.productName,
       productPrice: product.price,
-      quantity: state.quantity,
+      quantity: (state.unit == "gram") ? state.quantity : state.quantity * 1000,
       sellerId: product.seller.id,
-      unit: product.unit,
+      unit: 'gram',
       photoProduct: product.photoProduct,
       description: state.notes,
     );
 
-    // if (cartCount > 0) {
-    //   await _cartLocalServices.update(cart);
-    // } else {
     await _cartLocalServices.deleteAll();
     int inserted = await _cartLocalServices.insert(cart);
 
@@ -98,12 +113,28 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
     } else {
       emit(state.copyWith(asyncCart: AsyncState.error(Exception('Gagal'))));
     }
-
-    // }
   }
 
   void removeAllCart() async {
     await _cartLocalServices.deleteAll();
     emit(state.copyWith(isDiffSeller: false));
+  }
+
+  void selectedUnit(String unit) {
+    bool isValid = false;
+    double inputQuantity = 0;
+    if (unit == 'gram') {
+      inputQuantity = state.quantity;
+    } else {
+      inputQuantity = state.quantity * 1000;
+    }
+
+    if (inputQuantity >= 100) {
+      isValid = true;
+    }
+    emit(state.copyWith(
+      unit: unit,
+      validated: isValid,
+    ));
   }
 }

@@ -7,20 +7,26 @@ class ProductDetailState extends Equatable {
     this.quantity = 1,
     this.isDiffSeller = false,
     this.notes = "",
+    this.unit = "gram",
+    this.validated = false,
   });
 
   final AsyncState<Product> asyncProduct;
   final AsyncState<Cart> asyncCart;
-  final int quantity;
+  final double quantity;
   final String notes;
+  final String unit;
   final bool isDiffSeller;
+  final bool validated;
 
   ProductDetailState copyWith({
     AsyncState<Product>? asyncProduct,
     AsyncState<Cart>? asyncCart,
-    int? quantity,
+    double? quantity,
     bool? isDiffSeller,
     String? notes,
+    String? unit,
+    bool? validated,
   }) {
     return ProductDetailState(
       asyncProduct: asyncProduct ?? this.asyncProduct,
@@ -28,6 +34,8 @@ class ProductDetailState extends Equatable {
       quantity: quantity ?? this.quantity,
       isDiffSeller: isDiffSeller ?? this.isDiffSeller,
       notes: notes ?? this.notes,
+      validated: validated ?? this.validated,
+      unit: unit ?? this.unit,
     );
   }
 
@@ -38,5 +46,7 @@ class ProductDetailState extends Equatable {
         isDiffSeller,
         notes,
         asyncCart,
+        validated,
+        unit,
       ];
 }

@@ -15,7 +15,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Future<void> _onSignInListener(SignInState state) async {
     if (state.asyncUserLogged.isSuccess) {
-      if (state.asyncUserLogged.data!.isSuccess != false) {
+      if (state.asyncUserLogged.data != false) {
         Get.offAllNamed(
           GetMeatScreen.main,
         );
@@ -24,9 +24,8 @@ class _SignInScreenState extends State<SignInScreen> {
         showDialog(
             context: context,
             builder: (_) {
-              return GetMeatDialogWidget(
-                title: 'Login gagal',
-                subtitle: state.asyncUserLogged.data!.message!,
+              return const GetMeatDialogWidget(
+                subtitle: 'Terdapat kesalahan, silahkan coba kembali !!',
                 asset: GetMeatAssets.crossCircle,
               );
             });
@@ -37,7 +36,6 @@ class _SignInScreenState extends State<SignInScreen> {
           context: context,
           builder: (_) {
             return const GetMeatDialogWidget(
-              title: 'Login gagal',
               subtitle: 'Terdapat kesalahan, silahkan coba kembali !!',
               asset: GetMeatAssets.crossCircle,
             );
@@ -99,7 +97,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             decoration: TextDecoration.underline,
                           ),
                         ),
-                        onPressed: () => Get.offAllNamed(
+                        onPressed: () => Get.toNamed(
                           GetMeatScreen.register,
                         ),
                       ),

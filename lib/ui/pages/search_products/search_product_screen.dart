@@ -41,8 +41,10 @@ class _SearchProductScreenState extends State<SearchProductScreen> {
                           : state.products.data!,
                     );
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return const Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     );
                   }
                 },

@@ -64,7 +64,6 @@ class _HomePageState extends State<HomePage> {
                     } else {
                       return const Center(
                         child: CircularProgressIndicator(
-                          strokeWidth: 1,
                           color: GetMeatColors.darkBlue,
                         ),
                       );

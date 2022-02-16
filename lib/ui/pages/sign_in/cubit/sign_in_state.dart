@@ -14,14 +14,14 @@ class SignInState extends Equatable {
   final FieldValidation password;
   final bool isPasswordVisible;
   final bool validated;
-  final AsyncState<ApiReturnValue<User>> asyncUserLogged;
+  final AsyncState<bool> asyncUserLogged;
 
   SignInState copyWith({
     FieldValidation? email,
     FieldValidation? password,
     bool? isPasswordVisible,
     bool? validated,
-    AsyncState<ApiReturnValue<User>>? asyncUserLogged,
+    AsyncState<bool>? asyncUserLogged,
   }) {
     return SignInState(
       email: email ?? this.email,

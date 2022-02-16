@@ -34,14 +34,15 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  final TextEditingController _controller = TextEditingController();
-
   Future<void> _onListener(
       ProductDetailState state, BuildContext context) async {
     if (state.asyncCart.isSuccess) {
-      Get.toNamed(GetMeatScreen.payment, arguments: {
-        'product': state.asyncProduct.data,
-      });
+      Get.toNamed(
+        GetMeatScreen.payment,
+        arguments: {
+          'product': state.asyncProduct.data,
+        },
+      );
     } else if (state.isDiffSeller) {
       showDialog(
         context: context,
@@ -90,68 +91,45 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 var product = state.asyncProduct.data;
                 return Stack(
                   children: [
-                    ListView(
-                      shrinkWrap: true,
-                      children: [
-                        _ImageProductComponent(
-                          productPic:
-                              state.asyncProduct.data?.photoProduct ?? '',
-                        ),
-                        _ProductInformationComponent(
-                          product: product,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(16.w),
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Catatan untuk pedagang ',
-                                  style:
-                                      GetMeatTextStyle.blackFontStyle2.copyWith(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: ' Tidak Wajib',
-                                  style:
-                                      GetMeatTextStyle.blackFontStyle2.copyWith(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                ),
-                              ],
-                            ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
+                      ),
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          _ImageProductComponent(
+                            productPic:
+                                state.asyncProduct.data?.photoProduct ?? '',
                           ),
-                        ),
-                        _buildDivider(),
-                        BlocBuilder<ProductDetailCubit, ProductDetailState>(
-                            builder: (_, state) {
-                          return _NoteOrderComponent(
-                            lastNote: state.notes,
-                            controller: _controller,
-                          );
-                        }),
-                        _buildDivider(),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).viewInsets.bottom),
-                        ),
-                        BlocBuilder<ProductDetailCubit, ProductDetailState>(
-                            builder: (_, state) {
-                          return _ManagementQuantityComponent(
-                            quantity: state.quantity,
-                          );
-                        }),
-                      ],
+                          _ProductInformationComponent(
+                            product: product,
+                          ),
+                          BlocBuilder<ProductDetailCubit, ProductDetailState>(
+                            builder: (context, state) {
+                              TextEditingController _quantityController =
+                                  TextEditingController();
+                              return _ManagementQuantityComponent(
+                                quantity: state.quantity,
+                                controller: _quantityController,
+                                unitSelected: state.unit,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: SafeArea(
-                        child: _AddCartButtonComponent(
-                          product: product,
+                        child:
+                            BlocBuilder<ProductDetailCubit, ProductDetailState>(
+                          builder: (_, state) {
+                            return _AddCartButtonComponent(
+                              product: product,
+                              isValid: state.validated,
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -169,11 +147,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 
-  Widget _buildDivider() {
-    return Container(
-      width: double.infinity,
-      height: 0.5.h,
-      color: GetMeatColors.lightGray.withOpacity(0.2),
-    );
-  }
+  // Widget _buildDivider() {
+  //   return Container(
+  //     width: double.infinity,
+  //     height: 0.5.h,
+  //     color: GetMeatColors.lightGray.withOpacity(0.2),
+  //   );
+  // }
 }

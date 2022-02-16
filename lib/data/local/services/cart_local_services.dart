@@ -12,7 +12,7 @@ class CartLocalServices {
   static const _columnProductPrice = 'product_price';
   static const _columnQuantity = 'quantity';
   static const _columnPhotoProduct = 'photo_product';
-  static const _columnDescriptioOrder = 'description';
+  static const _columnDescriptionOrder = 'description';
   static const _columnSellerId = 'seller_id';
   static const _columnUnit = 'unit';
 
@@ -23,9 +23,9 @@ class CartLocalServices {
         $_columnProductId Integer,
         $_columnProductName Text,
         $_columnProductPrice Integer,
-        $_columnQuantity Integer,
+        $_columnQuantity Real,
         $_columnPhotoProduct Text,
-        $_columnDescriptioOrder Text,
+        $_columnDescriptionOrder Text,
         $_columnSellerId Integer,
         $_columnUnit Text
       )

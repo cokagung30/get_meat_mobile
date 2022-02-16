@@ -67,7 +67,8 @@ class _OrderItemsComponent extends StatelessWidget {
                             locale: 'id_ID',
                             symbol: 'Rp',
                             decimalDigits: 0,
-                          ).format(cart.productPrice),
+                          ).format(cart.productPrice) +
+                          " / kg",
                       style: GetMeatTextStyle.blackFontStyle2
                           .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                     ),
@@ -83,7 +84,7 @@ class _OrderItemsComponent extends StatelessWidget {
                     locale: 'id_ID',
                     symbol: 'Rp',
                     decimalDigits: 0,
-                  ).format(cart.productPrice * cart.quantity),
+                  ).format(cart.productPrice * (cart.quantity / 1000)),
                   style: GetMeatTextStyle.blackFontStyle2
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
@@ -91,7 +92,7 @@ class _OrderItemsComponent extends StatelessWidget {
                   height: 2.h,
                 ),
                 Text(
-                  cart.quantity.toString() + " ${cart.unit}",
+                  cart.quantity.toStringAsFixed(0) + " g",
                   style: GetMeatTextStyle.blackFontStyle2.copyWith(
                     fontSize: 12,
                     fontWeight: FontWeight.w300,
@@ -111,7 +112,10 @@ class _OrderItemsComponent extends StatelessWidget {
   Widget _buildItemOrder(Order order) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(GetMeatScreen.orderDetail, arguments: {'order': order});
+        Get.offAndToNamed(
+          GetMeatScreen.orderDetail,
+          arguments: {'order': order},
+        );
       },
       child: Container(
         padding:
@@ -168,11 +172,11 @@ class _OrderItemsComponent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  NumberFormat.currency(
+                  '${NumberFormat.currency(
                     locale: 'id_ID',
                     symbol: 'Rp',
                     decimalDigits: 0,
-                  ).format(order.product.price),
+                  ).format(order.product.price)} / kg',
                   style: GetMeatTextStyle.blackFontStyle2
                       .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
@@ -180,7 +184,7 @@ class _OrderItemsComponent extends StatelessWidget {
                   height: 2.h,
                 ),
                 Text(
-                  order.quantityOrder.toString() + " ${order.product.unit}",
+                  order.quantityOrder.toString() + " g",
                   style: GetMeatTextStyle.blackFontStyle2.copyWith(
                     fontSize: 12,
                     fontWeight: FontWeight.w300,
